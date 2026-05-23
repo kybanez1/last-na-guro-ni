@@ -1,0 +1,597 @@
+/* ============================================================
+   STUDENT DASHBOARD — Warm Academic Theme
+   Font: DM Sans + Fraunces (distinctive serif display)
+   Palette: Warm amber + teal + cream
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+:root {
+    --bg:          #f5f0ea;
+    --card:        #fffdf9;
+    --border:      #e8e0d5;
+    --text:        #1c1612;
+    --muted:       #7a6e65;
+    --primary:     #d97706;
+    --primary-lt:  #fef3c7;
+    --teal:        #0d9488;
+    --teal-lt:     #ccfbf1;
+    --indigo:      #4f46e5;
+    --indigo-lt:   #eef2ff;
+    --rose:        #e11d48;
+    --rose-lt:     #ffe4e6;
+    --shadow:      0 4px 24px rgba(28,22,18,.07);
+    --shadow-md:   0 8px 40px rgba(28,22,18,.10);
+    --radius:      20px;
+    --radius-sm:   12px;
+}
+
+*, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+}
+
+/* ============================================================
+   WRAPPER
+   ============================================================ */
+.student-dashboard {
+    padding: 2rem 2.25rem;
+    max-width: 1380px;
+    margin: auto;
+}
+
+/* ============================================================
+   TOP IDENTITY BAR — makes it unmistakably "student"
+   ============================================================ */
+.student-identity-bar {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1.75rem;
+}
+
+.student-role-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--primary);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .4rem 1rem;
+    border-radius: 999px;
+}
+
+.student-role-chip .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.6);
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: .6; transform: scale(1); }
+    50%       { opacity: 1;  transform: scale(1.4); }
+}
+
+.id-divider {
+    color: var(--border);
+    font-size: 1.2rem;
+}
+
+.student-id-chip {
+    font-size: .78rem;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+/* ============================================================
+   HERO BANNER
+   ============================================================ */
+.hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    padding: 2.25rem 2.5rem 2rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #1c1612 0%, #3b2f20 60%, #5c3d1a 100%);
+    color: #fff;
+    box-shadow: var(--shadow-md);
+}
+
+/* decorative circles */
+.hero::before {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(217,119,6,.35), transparent 70%);
+    pointer-events: none;
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    left: 40%; bottom: -80px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(13,148,136,.25), transparent 70%);
+    pointer-events: none;
+}
+
+.hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 2rem;
+}
+
+.hero-greeting {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .85rem;
+    font-weight: 500;
+    color: rgba(255,255,255,.55);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: .5rem;
+}
+
+.hero-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.01em;
+}
+
+.hero-title em {
+    font-style: italic;
+    color: #fbbf24;
+}
+
+.hero-sub {
+    margin-top: .6rem;
+    color: rgba(255,255,255,.6);
+    font-size: .85rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.hero-sub .sep { color: rgba(255,255,255,.2); }
+
+.student-badge {
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.18);
+    padding: 1rem 1.4rem;
+    border-radius: 18px;
+    text-align: center;
+    min-width: 140px;
+    flex-shrink: 0;
+}
+
+.student-badge .badge-label {
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.5);
+    margin-bottom: .3rem;
+}
+
+.student-badge .badge-val {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fbbf24;
+}
+
+/* ============================================================
+   HERO STATS
+   ============================================================ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.stat-card {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: var(--radius-sm);
+    padding: 1.1rem 1rem;
+    transition: background .2s, transform .2s;
+    cursor: default;
+}
+
+.stat-card:hover {
+    background: rgba(255,255,255,.13);
+    transform: translateY(-3px);
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+    margin-bottom: .6rem;
+    display: block;
+}
+
+.stat-value {
+    font-family: 'Fraunces', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: .3rem;
+}
+
+.stat-label {
+    font-size: .75rem;
+    color: rgba(255,255,255,.6);
+    font-weight: 500;
+}
+
+/* ============================================================
+   QUICK ACTIONS ROW
+   ============================================================ */
+.quick-actions {
+    display: flex;
+    gap: .75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+}
+
+.qa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .65rem 1.2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    border: 1.5px solid transparent;
+    transition: all .2s;
+}
+
+.qa-btn:hover { transform: translateY(-2px); }
+
+.qa-btn.amber {
+    background: var(--primary-lt);
+    color: #92400e;
+    border-color: #fde68a;
+}
+.qa-btn.teal {
+    background: var(--teal-lt);
+    color: #115e59;
+    border-color: #99f6e4;
+}
+.qa-btn.indigo {
+    background: var(--indigo-lt);
+    color: #3730a3;
+    border-color: #c7d2fe;
+}
+
+/* ============================================================
+   MAIN GRID
+   ============================================================ */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* ============================================================
+   PANEL
+   ============================================================ */
+.panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.panel:last-child { margin-bottom: 0; }
+
+.panel-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+}
+
+.panel-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.panel-sub {
+    font-size: .76rem;
+    color: var(--muted);
+    margin-top: 3px;
+    font-weight: 400;
+}
+
+.panel-action {
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    padding: .4rem .8rem;
+    border-radius: 8px;
+    background: var(--primary-lt);
+    transition: .2s;
+}
+.panel-action:hover { background: #fde68a; }
+
+/* ============================================================
+   PROJECT TABLE
+   ============================================================ */
+.project-table-wrap { overflow-x: auto; }
+
+.project-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.project-table th {
+    background: #fdf8f3;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: .68rem;
+    letter-spacing: .08em;
+    padding: .85rem 1.25rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+}
+
+.project-table td {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid #f5f0ea;
+    vertical-align: middle;
+    font-size: .875rem;
+}
+
+.project-row { transition: background .15s; }
+.project-row:hover { background: #fdf8f3; }
+.project-row:last-child td { border-bottom: none; }
+
+.project-name {
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+}
+
+.project-teacher {
+    font-size: .75rem;
+    color: var(--muted);
+}
+
+/* ============================================================
+   STATUS PILLS
+   ============================================================ */
+.status {
+    padding: .38rem .8rem;
+    border-radius: 999px;
+    font-size: .72rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.status.graded   { background: var(--teal-lt);   color: #115e59; }
+.status.submitted { background: var(--indigo-lt); color: #3730a3; }
+.status.pending  { background: var(--primary-lt); color: #92400e; }
+
+/* ============================================================
+   SCORE PILL
+   ============================================================ */
+.score-pill {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: .4rem .7rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: .8rem;
+    font-family: 'DM Sans', monospace;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.actions {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    text-decoration: none;
+    border: none;
+    padding: .55rem .9rem;
+    border-radius: 10px;
+    font-size: .75rem;
+    font-weight: 700;
+    transition: all .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn-dark    { background: var(--text); color: #fff; }
+.btn-primary { background: var(--primary); color: #fff; }
+
+/* ============================================================
+   GROUPS LIST
+   ============================================================ */
+.group-list { padding: .75rem 1rem; }
+
+.group-item {
+    background: #fdf8f3;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: .9rem 1rem;
+    margin-bottom: .75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: .2s;
+}
+
+.group-item:hover {
+    background: #fff;
+    border-color: #fde68a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(217,119,6,.1);
+}
+
+.group-item:last-child { margin-bottom: 0; }
+
+.group-name  { font-size: .9rem; font-weight: 700; margin-bottom: 2px; }
+.group-teacher { font-size: .75rem; color: var(--muted); }
+
+/* ============================================================
+   SUMMARY SIDEBAR
+   ============================================================ */
+.summary-wrap { padding: .75rem 1rem; }
+
+.summary-box {
+    border-radius: 14px;
+    padding: 1.1rem;
+    margin-bottom: .75rem;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, #fff, #fdf8f3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.summary-box:last-child { margin-bottom: 0; }
+
+.summary-label {
+    color: var(--muted);
+    font-size: .78rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.summary-value {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+}
+
+.summary-icon {
+    font-size: 1.75rem;
+    opacity: .7;
+}
+
+/* ============================================================
+   RECENT ACTIVITY
+   ============================================================ */
+.recent-wrap { padding: .25rem 0; }
+
+.recent-item {
+    padding: .9rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+}
+
+.recent-item:last-child { border-bottom: none; }
+.recent-item:hover { background: #fdf8f3; }
+
+.recent-title {
+    font-weight: 600;
+    font-size: .88rem;
+    color: var(--text);
+    margin-bottom: 3px;
+}
+
+.recent-meta { font-size: .74rem; color: var(--muted); }
+
+.recent-grade {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--teal-lt);
+    color: #115e59;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: .3rem .65rem;
+    border-radius: 999px;
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: .88rem;
+}
+
+.empty-icon { font-size: 2.5rem; margin-bottom: .75rem; display: block; opacity: .5; }
+
+/* ============================================================
+   ENROLLED CHIP
+   ============================================================ */
+.enrolled-chip {
+    padding: .3rem .75rem;
+    background: var(--teal-lt);
+    color: #115e59;
+    border-radius: 999px;
+    font-size: .72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+    .dashboard-grid  { grid-template-columns: 1fr; }
+    .stats-grid      { grid-template-columns: repeat(3,1fr); }
+}
+
+@media (max-width: 700px) {
+    .student-dashboard { padding: 1rem; }
+    .stats-grid        { grid-template-columns: 1fr 1fr; }
+    .hero-title        { font-size: 1.8rem; }
+    .hero-top          { flex-direction: column; }
+    .hero              { padding: 1.5rem; }
+}

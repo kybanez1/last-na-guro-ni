@@ -1,0 +1,331 @@
+/* teacher/projects/create.blade.php */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+:root {
+    --accent:    #4f46e5;
+    --accent-lt: #eef2ff;
+    --border:    #e5e7eb;
+    --bg:        #f8f9fc;
+    --text:      #111827;
+    --muted:     #6b7280;
+    --radius:    14px;
+    --font:      'Outfit', sans-serif;
+}
+
+.wrap {
+    font-family: var(--font);
+    max-width: 860px;
+    margin: auto;
+    padding: 1.75rem 1rem;
+}
+
+/* ── CARD ── */
+.card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,.05);
+}
+
+.header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text);
+    font-family: var(--font);
+}
+
+.body { padding: 1.5rem; }
+
+/* ── FIELDS ── */
+.field { margin-bottom: 1.1rem; }
+
+label {
+    display: block;
+    font-size: .82rem;
+    font-weight: 600;
+    margin-bottom: .4rem;
+    color: var(--text);
+    font-family: var(--font);
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: .65rem .9rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-size: .88rem;
+    transition: border-color .18s, box-shadow .18s;
+    box-sizing: border-box;
+    font-family: var(--font);
+    color: var(--text);
+    background: #fff;
+}
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,70,229,.1);
+}
+textarea { resize: vertical; }
+
+/* ── TWO-COL ROW ── */
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* ── FILE BOX ── */
+.file-box {
+    border: 2px dashed var(--border);
+    padding: 1rem;
+    border-radius: var(--radius);
+    background: var(--bg);
+}
+.file-help { margin-top: 6px; font-size: .74rem; color: var(--muted); }
+
+/* ── SEGMENTED TABS ── */
+.seg-tabs {
+    display: inline-flex;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: .75rem;
+}
+.seg-tab {
+    padding: .45rem 1.1rem;
+    font-size: .82rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    background: #fff;
+    color: var(--muted);
+    font-family: var(--font);
+    transition: .15s;
+}
+.seg-tab.active {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* ── ASSIGN TABS ── */
+.assign-tabs {
+    display: flex;
+    gap: .5rem;
+    margin-bottom: 1rem;
+}
+.assign-tab {
+    flex: 1;
+    padding: .65rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-size: .85rem;
+    font-weight: 600;
+    background: #fff;
+    color: var(--muted);
+    cursor: pointer;
+    text-align: center;
+    transition: .15s;
+    font-family: var(--font);
+}
+.assign-tab.active {
+    border-color: var(--accent);
+    background: var(--accent-lt);
+    color: var(--accent);
+}
+
+/* ── ASSIGN PANELS ── */
+.assign-panel { display: none; }
+.assign-panel.open { display: block; }
+
+/* ── FILTER ROW ── */
+.filter-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .6rem;
+    margin-bottom: .65rem;
+}
+.filter-row select {
+    padding: .5rem .8rem;
+    border-radius: 9px;
+    font-size: .83rem;
+    border: 1.5px solid var(--border);
+}
+.filter-row select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,70,229,.1);
+}
+
+/* ── STUDENT LIST ── */
+.student-checklist {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    max-height: 240px;
+    overflow-y: auto;
+    padding: .5rem .75rem;
+    scrollbar-width: thin;
+}
+.student-row {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    padding: .55rem .25rem;
+    border-bottom: 1px solid #f3f4f6;
+    cursor: pointer;
+}
+.student-row:last-child { border-bottom: none; }
+.student-row:hover { background: #f0f2ff; border-radius: 8px; }
+.student-row input[type=checkbox] {
+    width: 16px; height: 16px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+    cursor: pointer;
+}
+.student-name  { font-weight: 600; font-size: .86rem; color: var(--text); }
+.student-meta  { font-size: .72rem; color: var(--muted); margin-top: 1px; }
+.sec-tag {
+    padding: .1rem .4rem;
+    background: var(--accent-lt);
+    color: var(--accent);
+    border-radius: 999px;
+    font-size: .65rem;
+    font-weight: 700;
+    margin-left: .25rem;
+}
+
+/* ── SEARCH ── */
+.search-box {
+    width: 100%;
+    padding: .5rem .85rem .5rem 2rem;
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    font-size: .84rem;
+    margin-bottom: .5rem;
+    box-sizing: border-box;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%239ca3af' viewBox='0 0 24 24'%3E%3Cpath d='M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z' stroke='%239ca3af' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") .65rem center no-repeat;
+    font-family: var(--font);
+}
+.search-box:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,70,229,.1);
+}
+
+/* ── NO MATCH ── */
+.no-match {
+    display: none;
+    padding: 1rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: .82rem;
+}
+
+/* ── DIVIDER ── */
+.divider {
+    margin: 1.5rem 0;
+    border: none;
+    border-top: 1px solid var(--border);
+}
+
+/* ── TASK CARD ── */
+.task-card {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    margin-bottom: .85rem;
+    background: var(--bg);
+    position: relative;
+}
+.task-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .85rem;
+}
+.task-label {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+.remove-btn {
+    background: #fee2e2;
+    color: #dc2626;
+    border: none;
+    border-radius: 8px;
+    padding: .3rem .65rem;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font);
+}
+.remove-btn:hover { background: #fecaca; }
+
+.task-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .75rem;
+}
+
+/* ── BUTTONS ── */
+.btn {
+    padding: .65rem 1.25rem;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: .88rem;
+    transition: .18s;
+    font-family: var(--font);
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #4338ca; }
+.btn-add { background: var(--accent-lt); color: var(--accent); }
+.btn-add:hover { background: #e0e7ff; }
+.btn-submit {
+    width: 100%;
+    padding: .85rem;
+    font-size: .95rem;
+    justify-content: center;
+    margin-top: .5rem;
+}
+
+/* ── ERRORS ── */
+.error-box {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: .9rem 1.1rem;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    font-size: .85rem;
+    border: 1px solid #fca5a5;
+}
+.error-box ul { margin: 0; padding-left: 1.2rem; }
+
+/* ── EMPTY STATE ── */
+.task-empty {
+    padding: 1.1rem;
+    background: var(--bg);
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+    color: var(--muted);
+    font-size: .84rem;
+    margin-bottom: .75rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+    .field-row  { grid-template-columns: 1fr; }
+    .task-grid  { grid-template-columns: 1fr; }
+    .filter-row { grid-template-columns: 1fr; }
+    .assign-tabs { flex-direction: column; }
+    .body { padding: 1rem; }
+}

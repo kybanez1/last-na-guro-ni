@@ -1,0 +1,370 @@
+/* ============================================================
+   TEACHER DASHBOARD — Clean Calm Professional
+   Font: Outfit (display) + Lato (body)
+   Palette: Slate + soft indigo accents, lots of white space
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+
+:root {
+    --bg:          #f0f2f8;
+    --card:        #ffffff;
+    --border:      #e2e6ee;
+    --text:        #1a1d2e;
+    --muted:       #6b7280;
+    --soft:        #9ba3b2;
+    --accent:      #4f46e5;
+    --accent-lt:   #eef2ff;
+    --green:       #059669;
+    --green-lt:    #d1fae5;
+    --amber:       #d97706;
+    --amber-lt:    #fef3c7;
+    --rose:        #e11d48;
+    --rose-lt:     #ffe4e6;
+    --shadow:      0 2px 16px rgba(26,29,46,.06);
+    --shadow-md:   0 6px 32px rgba(26,29,46,.09);
+    --radius:      18px;
+    --radius-sm:   12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: var(--bg);
+    font-family: 'Lato', sans-serif;
+    color: var(--text);
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.pms-dash {
+    padding: 2rem 2.25rem;
+    max-width: 1300px;
+    margin: auto;
+}
+
+/* ============================================================
+   HEADER — minimal, calm
+   ============================================================ */
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.dash-greeting h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -.01em;
+}
+
+.dash-greeting p {
+    color: var(--muted);
+    font-size: .88rem;
+    margin-top: 3px;
+    font-weight: 300;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    flex-wrap: wrap;
+}
+
+.role-pill {
+    background: var(--accent-lt);
+    color: var(--accent);
+    padding: .38rem .9rem;
+    border-radius: 999px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    font-family: 'Outfit', sans-serif;
+}
+
+.teacher-code-chip {
+    background: #f8faff;
+    border: 1.5px solid #c7d2fe;
+    padding: .38rem 1rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--accent);
+    font-family: 'Outfit', monospace;
+    cursor: pointer;
+    transition: .2s;
+}
+.teacher-code-chip:hover { background: var(--accent-lt); }
+
+.btn-primary, .btn-outline {
+    padding: .6rem 1.1rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    transition: all .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-family: 'Outfit', sans-serif;
+    white-space: nowrap;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #4338ca; transform: translateY(-1px); }
+.btn-outline { border: 1.5px solid var(--border); color: var(--text); background: #fff; }
+.btn-outline:hover { border-color: #a5b4fc; color: var(--accent); }
+
+/* ============================================================
+   STATS ROW — 5 small calm cards
+   ============================================================ */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.1rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    transition: box-shadow .2s, transform .2s;
+}
+
+.stat-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.stat-icon-wrap {
+    width: 44px; height: 44px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.stat-icon-wrap.indigo { background: var(--accent-lt); }
+.stat-icon-wrap.green  { background: var(--green-lt); }
+.stat-icon-wrap.amber  { background: var(--amber-lt); }
+.stat-icon-wrap.rose   { background: var(--rose-lt); }
+.stat-icon-wrap.slate  { background: #f1f5f9; }
+
+
+.stat-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+}
+.stat-lbl {
+    font-size: .73rem;
+    color: var(--muted);
+    margin-top: 3px;
+    font-weight: 400;
+}
+
+/* ============================================================
+   GRID
+   ============================================================ */
+.dash-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* ============================================================
+   PANEL
+   ============================================================ */
+.panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+}
+.panel:last-child { margin-bottom: 0; }
+
+.panel-header {
+    padding: 1.1rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+}
+
+.panel-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.panel-action {
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    padding: .35rem .75rem;
+    border-radius: 8px;
+    background: var(--accent-lt);
+    transition: .2s;
+}
+.panel-action:hover { background: #e0e7ff; }
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+table { width: 100%; border-collapse: collapse; }
+
+th {
+    background: #f8f9fc;
+    color: var(--soft);
+    text-transform: uppercase;
+    font-size: .67rem;
+    letter-spacing: .08em;
+    padding: .8rem 1.2rem;
+    text-align: left;
+    font-weight: 700;
+    border-bottom: 1px solid var(--border);
+    font-family: 'Outfit', sans-serif;
+}
+
+td {
+    padding: .9rem 1.2rem;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: .84rem;
+    vertical-align: middle;
+    color: var(--text);
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f8f9fc; }
+
+.action-btn {
+    padding: .3rem .7rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: .75rem;
+    font-weight: 600;
+    transition: .15s;
+    font-family: 'Outfit', sans-serif;
+}
+.action-btn:hover { border-color: #a5b4fc; color: var(--accent); background: var(--accent-lt); }
+
+/* ============================================================
+   BADGE
+   ============================================================ */
+.badge {
+    display: inline-block;
+    padding: .28rem .65rem;
+    border-radius: 999px;
+    font-size: .7rem;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+}
+.badge-success { background: var(--green-lt); color: #065f46; }
+.badge-warning { background: var(--amber-lt); color: #78350f; }
+.badge-pending { background: #f1f5f9;         color: #475569; }
+
+/* ============================================================
+   SECTION CODE
+   ============================================================ */
+.section-code {
+    font-family: 'Outfit', monospace;
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-lt);
+    padding: .25rem .55rem;
+    border-radius: 7px;
+    letter-spacing: .08em;
+}
+
+/* ============================================================
+   STUDENT LIST (right sidebar)
+   ============================================================ */
+.student-item {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .8rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+}
+.student-item:last-child { border-bottom: none; }
+.student-item:hover { background: #f8f9fc; }
+
+.student-avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #818cf8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-family: 'Outfit', sans-serif;
+}
+
+.student-name {
+    font-size: .84rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* ============================================================
+   EMPTY
+   ============================================================ */
+.empty-row td {
+    text-align: center;
+    color: var(--soft);
+    padding: 2rem;
+    font-size: .85rem;
+}
+
+.panel-empty {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft);
+    font-size: .85rem;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+    .dash-grid   { grid-template-columns: 1fr; }
+    .stats-row   { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 700px) {
+    .pms-dash    { padding: 1rem; }
+    .stats-row   { grid-template-columns: 1fr 1fr; }
+    .dash-header { flex-direction: column; align-items: flex-start; }
+    .header-actions { flex-wrap: wrap; }
+}

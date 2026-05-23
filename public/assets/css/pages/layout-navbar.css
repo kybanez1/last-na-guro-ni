@@ -1,0 +1,73 @@
+/* layout-navbar.css */
+
+.custom-navbar {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    backdrop-filter: none;
+    padding: .4rem .5rem;
+}
+
+/* ── Animated Avatar ──────────────────────── */
+.avatar-face {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#6366f1,#8b5cf6);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: .25s ease;
+    box-shadow: 0 4px 14px rgba(99,102,241,.25);
+}
+.avatar-face:hover { transform: scale(1.08) rotate(2deg); }
+
+body.student-sidebar .avatar-face {
+    background: linear-gradient(135deg,#d97706,#f59e0b);
+    box-shadow: 0 4px 14px rgba(217,119,6,.25);
+}
+
+.face { 
+    width: 24px; height: 24px; position: relative; 
+}
+.eye {
+    width: 5px; height: 5px;
+    background: #111827; border-radius: 50%;
+    position: absolute; top: 6px;
+    animation: blink 4s infinite;
+}
+.eye.left  { left: 2px; }
+.eye.right { right: 2px; }
+
+.mouth {
+    width: 12px; height: 6px;
+    border-bottom: 2.5px solid #111827;
+    border-radius: 0 0 20px 20px;
+    position: absolute; bottom: 1px;
+    left: 50%; transform: translateX(-50%);
+}
+@keyframes blink {
+    0%,45%,47%,100% { transform: scaleY(1); }
+    46%             { transform: scaleY(0.1); }
+}
+
+/* ── Dropdown ─────────────────────────────── */
+.dropdown-menu {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.08);
+    padding: .6rem;
+    min-width: 240px;
+    margin-top: 12px;
+}
+
+.dropdown-item {
+    border-radius: 10px;
+    padding: .8rem 1rem;
+    transition: background .15s;
+}
+.dropdown-item:hover { background: #f3f4f6; }
+
+.profile-box { display: flex; align-items: center; gap: 12px; }
+.profile-info h6    { margin: 0; font-size: 14px; font-weight: 700; color: #111827; }
+.profile-info small { color: #6b7280; font-size: 12px; }
+
+.logout-btn:hover { background: #fef2f2 !important; }

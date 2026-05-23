@@ -1,0 +1,253 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Group;
+use App\Models\Section;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+
+class GroupController extends Controller
+{
+    /**
+     * GROUP LIST
+     */
+    public function index(): View
+    {
+        // Guard: sections table may not exist yet before migration runs
+        $sections = \Illuminate\Support\Facades\Schema::hasTable('sections')
+            ? auth()->user()->sections()->where('status', 'active')->orderBy('name')->get()
+            : collect();
+
+        if (!\Illuminate\Support\Facades\Schema::hasTable('groups')) {
+            return view('teacher.group.index_group', [
+                'groups'   => new \Illuminate\Pagination\LengthAwarePaginator([], 0, 12),
+                'sections' => $sections,
+            ]);
+        }
+
+        $groups = Group::with(['teacher', 'students', 'projects', 'section'])
+            ->where('teacher_id', auth()->id())
+            ->latest()
+            ->paginate(12);
+
+        return view('teacher.group.index_group', compact('groups', 'sections'));
+    }
+
+    /**
+     * CREATE GROUP PAGE
+     */
+    public function create(): View
+    {
+        // Only show students who entered this teacher's code
+        $students = auth()->user()->myStudents()
+            ->orderBy('name')
+            ->get();
+
+        // Teacher's own sections for the section picker
+        // Guard: sections table may not exist yet before migration runs
+        $sections = \Illuminate\Support\Facades\Schema::hasTable('sections')
+            ? auth()->user()->sections()->where('status', 'active')->orderBy('name')->get()
+            : collect();
+
+        return view('teacher.group.create_group', compact('students', 'sections'));
+    }
+
+    /**
+     * STORE GROUP
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        // Only validate section_id against DB if the sections table exists
+        $sectionRule = \Illuminate\Support\Facades\Schema::hasTable('sections')
+            ? 'required|exists:sections,id'
+            : 'required';
+
+        $validated = $request->validate([
+            'name'        => 'required|string|max:255',
+            'section_id'  => $sectionRule,
+            'students'    => 'required|array|min:1',
+            'students.*'  => 'exists:users,id',
+        ], [
+            'name.required'      => 'Group name is required.',
+            'name.max'           => 'Group name must be under 255 characters.',
+            'section_id.required'=> 'Please select a section for this group.',
+            'students.required'  => 'Please select at least one student for the group.',
+            'students.min'       => 'Please select at least one student for the group.',
+        ]);
+
+        try {
+
+            $group = Group::create([
+                'name'        => $validated['name'],
+                'description' => $validated['description'] ?? null,
+                'teacher_id'  => auth()->id(),
+                'section_id'  => $validated['section_id'] ?? null,
+                'status'      => 'active',
+                // join_code is auto-generated in Group::booted()
+            ]);
+
+            if (!empty($validated['students'])) {
+                // Teacher manually adds students - is_joined=0 until student enters code
+                $ids = collect($validated['students'])->mapWithKeys(fn($id) => [$id => ['is_joined' => 0]])->all();
+                $group->students()->attach($ids);
+            }
+
+            return redirect()
+                ->route('teacher.groups.show', $group->id)
+                ->with('success', 'Group "' . $group->name . '" created! Share the join code with students: ' . $group->join_code);
+
+        } catch (\Exception $e) {
+
+            return redirect()
+                ->route('teacher.groups.index')
+                ->withInput()
+                ->withErrors(['name' => 'Failed to create group. Please try again.']);
+        }
+    }
+
+    /**
+     * SHOW GROUP
+     */
+    public function show(Group $group): View
+    {
+        if ($group->teacher_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $group->load(['teacher', 'students', 'projects']);
+
+        $students = $group->students()->orderBy('name')->paginate(10);
+
+        // Only show teacher's registered students not already in this group
+        $availableStudents = auth()->user()->myStudents()
+            ->whereNotIn('users.id', $group->students->pluck('id'))
+            ->orderBy('name')
+            ->get();
+
+        return view(
+            'teacher.group.show',
+            compact('group', 'students', 'availableStudents')
+        );
+    }
+
+    /**
+     * EDIT GROUP
+     */
+    public function edit(Group $group): View
+    {
+        if ($group->teacher_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        // Only show students who entered this teacher's code
+        $students = auth()->user()->myStudents()
+            ->orderBy('name')
+            ->get();
+
+        // Guard: sections table may not exist yet before migration runs
+        $sections = \Illuminate\Support\Facades\Schema::hasTable('sections')
+            ? auth()->user()->sections()->where('status', 'active')->orderBy('name')->get()
+            : collect();
+
+        return view('teacher.group.edit_group', compact('group', 'students', 'sections'));
+    }
+
+    /**
+     * UPDATE GROUP
+     */
+    public function update(Request $request, Group $group): RedirectResponse
+    {
+        if ($group->teacher_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $sectionRule = \Illuminate\Support\Facades\Schema::hasTable('sections')
+            ? 'nullable|exists:sections,id'
+            : 'nullable';
+
+        $validated = $request->validate([
+            'name'        => 'required|string|max:255',
+            'section_id'  => $sectionRule,
+            'status'      => 'nullable|in:active,inactive',
+            'students'    => 'nullable|array',
+            'students.*'  => 'exists:users,id',
+        ]);
+
+        $group->update([
+            'name'        => $validated['name'],
+            'section_id'  => $validated['section_id'] ?? null,
+            'status'      => $validated['status'] ?? $group->status,
+        ]);
+
+        $ids = collect($validated['students'] ?? [])->mapWithKeys(fn($id) => [$id => ['is_joined' => 0]])->all();
+        $group->students()->sync($ids);
+
+        return redirect()
+            ->route('teacher.groups.index')
+            ->with('success', 'Group updated successfully!');
+    }
+
+    /**
+     * DELETE GROUP
+     */
+    public function destroy(Group $group): RedirectResponse
+    {
+        if ($group->teacher_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $group->students()->detach();
+        $group->delete();
+
+        return redirect()
+            ->route('teacher.groups.index')
+            ->with('success', 'Group deleted successfully!');
+    }
+
+    /**
+     * ADD STUDENT
+     */
+    public function addStudent(Request $request, Group $group): RedirectResponse
+    {
+        if ($group->teacher_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $request->validate(['student_id' => 'required|exists:users,id']);
+
+        $group->students()->syncWithoutDetaching([$request->student_id => ['is_joined' => 0]]);
+
+        return back()->with('success', 'Student added successfully!');
+    }
+
+    /**
+     * REMOVE STUDENT
+     */
+    public function removeStudent(Group $group, User $student): RedirectResponse
+    {
+        if ($group->teacher_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $group->students()->detach($student->id);
+
+        return back()->with('success', 'Student removed successfully!');
+    }
+
+    /**
+     * REGENERATE JOIN CODE
+     */
+    public function regenerateCode(Group $group): RedirectResponse
+    {
+        if ($group->teacher_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $newCode = $group->regenerateCode();
+
+        return back()->with('success', 'New join code generated: ' . $newCode);
+    }
+}

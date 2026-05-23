@@ -1,0 +1,259 @@
+/* ============================================================
+   TEACHER SIDEBAR — Dark Navy Professional
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+/* ── TEACHER ───────────────────────────────────────────── */
+body.teacher-sidebar .layout-menu,
+.layout-menu.teacher-menu {
+    border-right: none;
+    background: #1e1b4b !important;
+    box-shadow: 4px 0 24px rgba(30,27,75,.25);
+}
+
+/* ── STUDENT ───────────────────────────────────────────── */
+body.student-sidebar .layout-menu,
+.layout-menu.student-menu {
+    border-right: 1px solid #f0e8df;
+    background: #fffdf9 !important;
+    box-shadow: 2px 0 16px rgba(28,22,18,.05);
+}
+
+/* ── SHARED BASE ───────────────────────────────────────── */
+.layout-menu { overflow-y: auto; }
+
+/* ============================================================
+   BRAND BLOCK
+   ============================================================ */
+.app-brand {
+    padding: 1.15rem 1.3rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Teacher brand — dark header */
+body.teacher-sidebar .app-brand {
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    background: transparent;
+}
+
+/* Student brand — warm gradient header */
+body.student-sidebar .app-brand {
+    border-bottom: 1px solid #f0e8df;
+    background: linear-gradient(135deg,#1c1612,#3b2f20);
+}
+
+.brand-box { display: flex; align-items: center; gap: 11px; }
+
+/* Teacher logo */
+body.teacher-sidebar .brand-logo {
+    width: 40px; height: 40px; border-radius: 11px;
+    background: linear-gradient(135deg,#4f46e5,#7c3aed);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 18px; font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    box-shadow: 0 6px 14px rgba(79,70,229,.35);
+}
+
+/* Student logo */
+body.student-sidebar .brand-logo {
+    width: 40px; height: 40px; border-radius: 11px;
+    background: linear-gradient(135deg,#d97706,#f59e0b);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 18px; font-weight: 700;
+    font-family: Georgia, serif;
+    box-shadow: 0 6px 14px rgba(217,119,6,.35);
+}
+
+.brand-text { display: flex; flex-direction: column; line-height: 1.25; }
+
+body.teacher-sidebar .brand-title { font-size: 17px; font-weight: 700; color: #fff; font-family: 'Outfit', sans-serif; }
+body.teacher-sidebar .brand-sub   { font-size: 10px; color: rgba(255,255,255,.35); letter-spacing: .12em; text-transform: uppercase; }
+
+body.student-sidebar .brand-title { font-size: 17px; font-weight: 700; color: #fff; font-family: Georgia, serif; font-style: italic; }
+body.student-sidebar .brand-sub   { font-size: 10px; color: rgba(255,255,255,.4); letter-spacing: .12em; text-transform: uppercase; }
+
+/* ============================================================
+   STUDENT IDENTITY STRIP
+   ============================================================ */
+.student-identity-strip {
+    display: none;
+    align-items: center;
+    gap: .6rem;
+    padding: .7rem 1.3rem;
+    background: #fdf8f3;
+    border-bottom: 1px solid #f0e8df;
+}
+
+body.student-sidebar .student-identity-strip {
+    display: flex;
+}
+
+.strip-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg,#d97706,#fbbf24);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: .75rem; font-weight: 700; flex-shrink: 0;
+}
+
+.strip-info { flex: 1; min-width: 0; }
+.strip-name  { font-size: .78rem; font-weight: 700; color: #1c1612; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.strip-role  { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #d97706; }
+
+.strip-pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #d97706; flex-shrink: 0;
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+    0%,100% { opacity:.5; transform:scale(1); }
+    50%      { opacity:1;  transform:scale(1.4); }
+}
+
+/* ============================================================
+   MENU
+   ============================================================ */
+.menu-inner { padding: .65rem .6rem; }
+
+/* Section labels */
+body.teacher-sidebar .menu-section {
+    font-size: 10px; font-weight: 700;
+    color: rgba(255,255,255,.25);
+    text-transform: uppercase; letter-spacing: .1em;
+    padding: 1rem .85rem .4rem;
+    font-family: 'Outfit', sans-serif;
+}
+
+body.student-sidebar .menu-section {
+    font-size: 10px; font-weight: 700;
+    color: #c4b5a0;
+    text-transform: uppercase; letter-spacing: .1em;
+    padding: 1rem .85rem .4rem;
+}
+
+.menu-item { margin-bottom: 2px; }
+
+/* ── Teacher links ── */
+body.teacher-sidebar .menu-link {
+    border-radius: 10px !important;
+    padding: .68rem .85rem !important;
+    display: flex !important; align-items: center !important; gap: 10px;
+    transition: .15s ease;
+    color: rgba(255,255,255,.55) !important;
+    font-weight: 500; font-size: .875rem;
+    font-family: 'Outfit', sans-serif;
+    text-decoration: none;
+}
+body.teacher-sidebar .menu-link:hover {
+    background: rgba(255,255,255,.08) !important;
+    color: #fff !important;
+}
+body.teacher-sidebar .menu-link i { font-size: 18px; color: rgba(255,255,255,.35); transition: .15s; }
+body.teacher-sidebar .menu-link:hover i { color: rgba(255,255,255,.8) !important; }
+body.teacher-sidebar .menu-item.active .menu-link {
+    background: rgba(99,102,241,.22) !important;
+    color: #fff !important; font-weight: 600;
+    box-shadow: inset 3px 0 0 #818cf8;
+}
+body.teacher-sidebar .menu-item.active .menu-link i { color: #a5b4fc !important; }
+
+/* ── Student links ── */
+body.student-sidebar .menu-link {
+    border-radius: 10px !important;
+    padding: .68rem .85rem !important;
+    display: flex !important; align-items: center !important; gap: 10px;
+    transition: .15s ease;
+    color: #4a3f38 !important;
+    font-weight: 500; font-size: .875rem;
+    text-decoration: none;
+}
+body.student-sidebar .menu-link:hover {
+    background: #fef3c7 !important;
+    color: #92400e !important;
+}
+body.student-sidebar .menu-link i { font-size: 18px; color: #b8a99a; transition: .15s; }
+body.student-sidebar .menu-link:hover i { color: #d97706 !important; }
+body.student-sidebar .menu-item.active .menu-link {
+    background: #fef3c7 !important;
+    color: #92400e !important; font-weight: 700;
+    box-shadow: inset 3px 0 0 #d97706;
+}
+body.student-sidebar .menu-item.active .menu-link i { color: #d97706 !important; }
+
+/* ── Badge ── */
+.menu-badge {
+    margin-left: auto;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 7px; border-radius: 999px;
+}
+body.teacher-sidebar .menu-badge { background: #4f46e5; color: #fff; }
+body.student-sidebar .menu-badge { background: #d97706; color: #fff; }
+
+/* ── Logout ── */
+body.teacher-sidebar .logout-link { color: #fca5a5 !important; }
+body.teacher-sidebar .logout-link i { color: #fca5a5 !important; }
+body.teacher-sidebar .logout-link:hover { background: rgba(239,68,68,.12) !important; }
+
+body.student-sidebar .logout-link { color: #ef4444 !important; }
+body.student-sidebar .logout-link i { color: #ef4444 !important; }
+body.student-sidebar .logout-link:hover { background: #fee2e2 !important; }
+
+/* ── Scrollbar ── */
+body.teacher-sidebar .layout-menu { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.1) transparent; }
+body.student-sidebar .layout-menu { scrollbar-width: thin; scrollbar-color: #e8e0d5 transparent; }
+
+@media(max-width:1200px){ .layout-menu{ box-shadow:none; } }
+
+/* ============================================================
+   MOBILE RESPONSIVE — sidebar & layout
+   ============================================================ */
+@media (max-width: 1199px) {
+    /* Sidebar overlays on mobile */
+    .layout-menu {
+        position: fixed !important;
+        top: 0; left: 0;
+        height: 100vh;
+        z-index: 1050;
+        width: 260px !important;
+        transform: translateX(-100%);
+        transition: transform .3s ease;
+    }
+
+    .layout-menu-open .layout-menu {
+        transform: translateX(0);
+    }
+
+    .layout-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.5);
+        z-index: 1049;
+        display: none;
+    }
+
+    .layout-menu-open .layout-overlay {
+        display: block;
+    }
+
+    /* Hamburger toggle button */
+    .layout-menu-toggle {
+        display: flex !important;
+    }
+}
+
+@media (max-width: 575px) {
+    /* Tables: allow horizontal scroll */
+    .panel, .pms-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Generic page padding */
+    .pms-page,
+    .wrap {
+        padding: 0.75rem 0.5rem !important;
+    }
+
+    .page-title { font-size: 1.1rem !important; }
+}
