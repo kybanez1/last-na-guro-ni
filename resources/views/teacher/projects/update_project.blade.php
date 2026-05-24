@@ -128,7 +128,7 @@
                     <select id="groupSectionFilter" onchange="filterGroupsBySection(this.value)">
                         <option value="">— All sections —</option>
                         @foreach($sections as $sec)
-                        <option value="{{ $sec->id }}">{{ $sec->name }}{{ $sec->school_year ? ' · '.$sec->school_year : '' }}{{ $sec->semester ? ' · '.$sec->semester : '' }}</option>
+                        <option value="{{ $sec->id }}">{{ $sec->name }}{{ $sec->subject ? ' · '.$sec->subject : '' }}{{ $sec->school_year ? ' · '.$sec->school_year : '' }}{{ $sec->semester ? ' · '.$sec->semester : '' }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -160,10 +160,10 @@
                     @endphp
                     <div class="filter-row">
                         @if($sections->isNotEmpty())
-                        <select id="studentSectionFilter" onchange="filterStudentsBySection(this.value)">
+                        <select id="studentSectionFilter" name="section_id" onchange="filterStudentsBySection(this.value)">
                             <option value="">— All sections —</option>
                             @foreach($sections as $sec)
-                            <option value="{{ $sec->id }}">{{ $sec->name }}</option>
+                            <option value="{{ $sec->id }}" {{ (old('section_id', $project->section_id)) == $sec->id ? 'selected' : '' }}>{{ $sec->name }}{{ $sec->subject ? ' · '.$sec->subject : '' }}</option>
                             @endforeach
                         </select>
                         @endif

@@ -74,6 +74,7 @@
                     <tr>
                         <th>#</th>
                         <th>Project</th>
+                        <th>Subject</th>
                         <th>Teacher</th>
                         <th>Score</th>
                         <th>Submission Status</th>
@@ -102,6 +103,14 @@
                             <div class="teacher-name">
                                 Due {{ $project->due_date ? \Carbon\Carbon::parse($project->due_date)->format('M d, Y') : '—' }}
                             </div>
+                        </td>
+
+                        <td>
+                            @if($project->subject)
+                                <span style="font-size:.78rem;color:#7c3aed;font-weight:600;background:#f5f3ff;padding:2px 8px;border-radius:6px;">{{ $project->subject }}</span>
+                            @else
+                                <span style="color:#9ca3af;font-size:.78rem;">—</span>
+                            @endif
                         </td>
 
                         <td>

@@ -52,7 +52,7 @@
 
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 360px;gap:1.5rem;">
+    <div class="dash-main-grid">
 
         
         <div>
@@ -68,6 +68,7 @@
                         <tr>
                             <th>Project</th>
                             <th>Group</th>
+                            <th>Subject</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -77,13 +78,21 @@
                             <tr>
                                 <td><strong><?php echo e($project->title); ?></strong></td>
                                 <td><?php echo e($project->group->name ?? '—'); ?></td>
+                                <td>
+                                    <?php $subj = $project->group->section->subject ?? null; ?>
+                                    <?php if($subj): ?>
+                                        <span style="font-size:.75rem;color:#7c3aed;font-weight:600;background:#f5f3ff;padding:2px 7px;border-radius:6px;"><?php echo e($subj); ?></span>
+                                    <?php else: ?>
+                                        <span style="color:#9ca3af;">—</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?php echo e(ucfirst($project->status)); ?></td>
                                 <td>
                                     <a href="<?php echo e(route('teacher.projects.show', $project->id)); ?>" class="action-btn">View</a>
                                 </td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                            <tr><td colspan="4">No projects yet.</td></tr>
+                            <tr><td colspan="5">No projects yet.</td></tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -127,6 +136,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Subject</th>
                             <th>Students</th>
                             <th>Actions</th>
                         </tr>
@@ -135,13 +145,21 @@
                         <?php $__empty_1 = true; $__currentLoopData = $groups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $group): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <tr>
                                 <td><?php echo e($group->name); ?></td>
+                                <td>
+                                    <?php $gsubj = $group->section->subject ?? null; ?>
+                                    <?php if($gsubj): ?>
+                                        <span style="font-size:.75rem;color:#7c3aed;font-weight:600;background:#f5f3ff;padding:2px 7px;border-radius:6px;"><?php echo e($gsubj); ?></span>
+                                    <?php else: ?>
+                                        <span style="color:#9ca3af;">—</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?php echo e($group->students_count); ?></td>
                                 <td>
                                     <a href="<?php echo e(route('teacher.groups.show', $group->id)); ?>" class="action-btn">View</a>
                                 </td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                            <tr><td colspan="3">No groups yet.</td></tr>
+                            <tr><td colspan="4">No groups yet.</td></tr>
                         <?php endif; ?>
                     </tbody>
                 </table>

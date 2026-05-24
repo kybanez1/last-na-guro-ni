@@ -71,7 +71,8 @@ class StudentProjectController extends Controller
         */
         $assignedProjects = Project::with([
                 'teacher',
-                'group',
+                'group.section',
+                'section',
                 'tasks',
             ])
             ->where(function ($query) use ($student, $groupIds) {
@@ -127,7 +128,7 @@ class StudentProjectController extends Controller
         );
 
         // Eager-load tasks so the view can iterate them
-        $project->loadMissing(['teacher', 'tasks', 'group']);
+        $project->loadMissing(['teacher', 'tasks', 'group.section', 'section']);
 
         /*
         |--------------------------------------------------------------------------

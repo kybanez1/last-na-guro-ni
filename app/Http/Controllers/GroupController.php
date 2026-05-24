@@ -117,7 +117,7 @@ class GroupController extends Controller
             abort(403, 'Unauthorized');
         }
 
-        $group->load(['teacher', 'students', 'projects']);
+        $group->load(['teacher', 'students', 'projects', 'section']);
 
         $students = $group->students()->orderBy('name')->paginate(10);
 

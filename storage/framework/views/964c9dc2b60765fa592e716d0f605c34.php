@@ -58,6 +58,29 @@
                         <?php endif; ?>
                     </div>
                 </div>
+                <?php if($isGroupProject): ?>
+                <div>
+                    <div class="label">Subject</div>
+                    <div class="value">
+                        <?php if($project->subject): ?>
+                            <span style="color:#7c3aed;font-weight:600;">📚 <?php echo e($project->subject); ?></span>
+                        <?php else: ?>
+                            <span style="color:#9ca3af;">—</span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php else: ?>
+                <div>
+                    <div class="label">Subject</div>
+                    <div class="value">
+                        <?php if($project->subject): ?>
+                            <span style="color:#7c3aed;font-weight:600;">📚 <?php echo e($project->subject); ?></span>
+                        <?php else: ?>
+                            <span style="color:#9ca3af;">—</span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
                 <div>
                     <div class="label">Requirements</div>
                     <div class="value"><?php echo e($project->requirements ?: 'No requirements provided.'); ?></div>

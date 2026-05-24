@@ -23,6 +23,9 @@
         <div style="margin-top:1rem;font-size:.82rem;opacity:.75;">
             Teacher: {{ $group->teacher->name ?? '—' }}
             · {{ $group->students->count() }} member(s)
+            @if($group->section && $group->section->subject)
+                · 📚 {{ $group->section->subject }}
+            @endif
         </div>
     </div>
 

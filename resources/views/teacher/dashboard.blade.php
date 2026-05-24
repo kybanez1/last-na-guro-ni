@@ -53,7 +53,7 @@
 
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 360px;gap:1.5rem;">
+    <div class="dash-main-grid">
 
         {{-- LEFT --}}
         <div>
@@ -69,6 +69,7 @@
                         <tr>
                             <th>Project</th>
                             <th>Group</th>
+                            <th>Subject</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -78,13 +79,20 @@
                             <tr>
                                 <td><strong>{{ $project->title }}</strong></td>
                                 <td>{{ $project->group->name ?? '—' }}</td>
+                                <td>
+                                    @if($project->subject)
+                                        <span style="font-size:.75rem;color:#7c3aed;font-weight:600;background:#f5f3ff;padding:2px 7px;border-radius:6px;">{{ $project->subject }}</span>
+                                    @else
+                                        <span style="color:#9ca3af;">—</span>
+                                    @endif
+                                </td>
                                 <td>{{ ucfirst($project->status) }}</td>
                                 <td>
                                     <a href="{{ route('teacher.projects.show', $project->id) }}" class="action-btn">View</a>
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="4">No projects yet.</td></tr>
+                            <tr><td colspan="5">No projects yet.</td></tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -128,6 +136,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Subject</th>
                             <th>Students</th>
                             <th>Actions</th>
                         </tr>
@@ -136,13 +145,21 @@
                         @forelse($groups as $group)
                             <tr>
                                 <td>{{ $group->name }}</td>
+                                <td>
+                                    @php $gsubj = $group->section->subject ?? null; @endphp
+                                    @if($gsubj)
+                                        <span style="font-size:.75rem;color:#7c3aed;font-weight:600;background:#f5f3ff;padding:2px 7px;border-radius:6px;">{{ $gsubj }}</span>
+                                    @else
+                                        <span style="color:#9ca3af;">—</span>
+                                    @endif
+                                </td>
                                 <td>{{ $group->students_count }}</td>
                                 <td>
                                     <a href="{{ route('teacher.groups.show', $group->id) }}" class="action-btn">View</a>
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="3">No groups yet.</td></tr>
+                            <tr><td colspan="4">No groups yet.</td></tr>
                         @endforelse
                     </tbody>
                 </table>

@@ -20,6 +20,9 @@
             <div class="page-subtitle">
                 {{ $group->description ?? 'No description' }} &nbsp;·&nbsp;
                 <span class="badge {{ $group->status === 'active' ? 'badge-active' : 'badge-inactive' }}">{{ ucfirst($group->status) }}</span>
+                @if($group->section && $group->section->subject)
+                    &nbsp;·&nbsp; <span style="color:#7c3aed;font-weight:700;">📚 {{ $group->section->subject }}</span>
+                @endif
             </div>
         </div>
         <div style="display:flex;gap:0.75rem;">
@@ -43,6 +46,12 @@
         <div class="stat-card">
             <div class="value">{{ $group->projects()->count() }}</div>
             <div class="label">Projects</div>
+        </div>
+        <div class="stat-card">
+            <div class="value" style="font-size:{{ $group->section && $group->section->subject ? '1rem' : '1.5rem' }};color:#7c3aed;">
+                {{ $group->section->subject ?? '—' }}
+            </div>
+            <div class="label">Subject</div>
         </div>
         <div class="stat-card">
             <div class="value">{{ $group->created_at->format('M d') }}</div>

@@ -128,7 +128,7 @@
       </div>
 
       <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
+      <div class="layout-overlay" id="layout-overlay"></div>
     </div>
     <!-- /Layout wrapper -->
 

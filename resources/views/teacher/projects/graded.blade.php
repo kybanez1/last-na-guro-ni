@@ -45,6 +45,10 @@
                             {{ $project->description }}
                         </div>
 
+                        @if($project->subject)
+                            <div style="font-size:.78rem;color:#7c3aed;font-weight:600;margin-bottom:.5rem;">📚 {{ $project->subject }}</div>
+                        @endif
+
                         <div class="stats">
 
                             <div class="pill">

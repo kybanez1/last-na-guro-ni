@@ -71,3 +71,10 @@ body.student-sidebar .avatar-face {
 .profile-info small { color: #6b7280; font-size: 12px; }
 
 .logout-btn:hover { background: #fef2f2 !important; }
+
+/* ── Hide hamburger when sidebar is open on mobile ─────────── */
+@media (max-width: 1199.98px) {
+    .layout-menu-expanded .layout-menu-toggle {
+        display: none !important;
+    }
+}

@@ -122,6 +122,7 @@
                             <thead>
                                 <tr>
                                     <th>Project</th>
+                                    <th>Subject</th>
                                     <th>Deadline</th>
                                     <th>Status</th>
                                     <th>Score</th>
@@ -138,6 +139,13 @@
                                         <td>
                                             <div class="project-name">{{ $project->title }}</div>
                                             <div class="project-teacher">{{ $project->teacher->name ?? 'Teacher' }}</div>
+                                        </td>
+                                        <td>
+                                            @if($project->subject)
+                                                <span style="font-size:.75rem;color:#7c3aed;font-weight:600;background:#f5f3ff;padding:2px 7px;border-radius:6px;">{{ $project->subject }}</span>
+                                            @else
+                                                <span style="color:#9ca3af;">—</span>
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $project->due_date
@@ -195,7 +203,11 @@
                             <div class="group-item">
                                 <div>
                                     <div class="group-name">{{ $group->name }}</div>
-                                    <div class="group-teacher">👩‍🏫 {{ $group->teacher->name ?? 'Teacher' }}</div>
+                                    <div class="group-teacher">👩‍🏫 {{ $group->teacher->name ?? 'Teacher' }}
+                                        @if($group->section && $group->section->subject)
+                                            &nbsp;·&nbsp; 📚 {{ $group->section->subject }}
+                                        @endif
+                                    </div>
                                 </div>
                                 <a href="{{ route('student.groups.show', $group->id) }}" class="btn btn-primary">Open →</a>
                             </div>

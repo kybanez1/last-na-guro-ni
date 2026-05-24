@@ -19,7 +19,7 @@ class StudentDashboardController extends Controller
         }
 
         $assignedProjects = $student->assignedProjects()
-                                   ->with('teacher')
+                                   ->with(['teacher', 'group.section', 'section'])
                                    ->orderBy('due_date', 'asc')
                                    ->get();
 
@@ -32,7 +32,7 @@ class StudentDashboardController extends Controller
         })->count();
 
         // Only show groups student actively joined via code
-        $groups = $student->joinedGroups()->with('teacher')->get();
+        $groups = $student->joinedGroups()->with(['teacher', 'section'])->get();
 
         $recentSubmissions = $student->submissions()
                                     ->with(['project', 'project.teacher'])
@@ -76,7 +76,7 @@ class StudentDashboardController extends Controller
         }
 
         $gradedProjects = $student->assignedProjects()
-            ->with('teacher')
+            ->with(['teacher', 'group.section', 'section'])
             ->wherePivot('assignment_status', 'graded')
             ->orderBy('due_date', 'desc')
             ->get();

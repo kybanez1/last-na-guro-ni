@@ -23,7 +23,7 @@ class TeacherDashboardController extends Controller
         | PROJECTS — this teacher only, latest 5
         |--------------------------------------------------------------------------
         */
-        $projects = Project::with(['group', 'submissions'])
+        $projects = Project::with(['group.section', 'section', 'submissions'])
             ->where('teacher_id', $teacher->id)
             ->latest()
             ->take(5)
@@ -35,6 +35,7 @@ class TeacherDashboardController extends Controller
         |--------------------------------------------------------------------------
         */
         $groups = Group::withCount('students')
+            ->with('section')
             ->where('teacher_id', $teacher->id)
             ->latest()
             ->take(5)

@@ -29,6 +29,11 @@
             Due:
             <?php echo e(\Carbon\Carbon::parse($project->due_date)->format('M d, Y')); ?>
 
+
+            <?php if($project->subject): ?>
+                · 📚 <?php echo e($project->subject); ?>
+
+            <?php endif; ?>
         </div>
 
         <!-- DESCRIPTION -->

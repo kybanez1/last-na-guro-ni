@@ -41,6 +41,11 @@
                     <div class="label">Group</div>
                 </div>
 
+                <div class="stat">
+                    <div class="value" style="font-size:.78rem;color:#7c3aed;">{{ $project->subject ?? '—' }}</div>
+                    <div class="label">Subject</div>
+                </div>
+
                 {{-- FIX: null-safe due_date --}}
                 <div class="stat">
                     <div class="value">

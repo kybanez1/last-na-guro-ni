@@ -26,7 +26,8 @@ class ProjectController extends Controller
 
         $projects = $teacher->projects()
             ->with([
-                'group',
+                'group.section',
+                'section',
                 'assignments',
                 'tasks',
             ])
@@ -89,6 +90,7 @@ class ProjectController extends Controller
             'requirements'=> 'nullable|string|max:5000',
 
             'group_id'    => 'nullable|exists:groups,id',
+            'section_id'  => 'nullable|exists:sections,id',
             'student_ids'   => 'nullable|array',
             'student_ids.*' => 'exists:users,id',
 
@@ -156,6 +158,10 @@ class ProjectController extends Controller
             'requirements' => $validated['requirements'] ?? null,
 
             'group_id' => $validated['group_id'] ?? null,
+
+            'section_id' => !empty($validated['group_id'])
+                ? (Group::find($validated['group_id'])?->section_id)
+                : ($validated['section_id'] ?? null),
 
             'start_date' => $validated['start_date'] ?? null,
 
@@ -257,7 +263,8 @@ class ProjectController extends Controller
         |--------------------------------------------------------------------------
         */
         $project->load([
-            'group',
+            'group.section',
+            'section',
             'assignments',
             'tasks',
             'teacher',
@@ -370,6 +377,7 @@ class ProjectController extends Controller
             'requirements'=> 'nullable|string|max:5000',
 
             'group_id'      => 'nullable|exists:groups,id',
+            'section_id'    => 'nullable|exists:sections,id',
             'student_ids'   => 'nullable|array',
             'student_ids.*' => 'exists:users,id',
 
@@ -470,6 +478,10 @@ class ProjectController extends Controller
             'requirements' => $validated['requirements'] ?? null,
 
             'group_id' => $validated['group_id'] ?? null,
+
+            'section_id' => !empty($validated['group_id'])
+                ? (Group::find($validated['group_id'])?->section_id)
+                : ($validated['section_id'] ?? null),
 
             'start_date' => $validated['start_date']
                 ?? $project->start_date,

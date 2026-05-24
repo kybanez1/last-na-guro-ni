@@ -2,6 +2,64 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/pages/student-group-join.css') }}">
+<style>
+.group-list-card {
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 1.5rem;
+    margin-top: 1.25rem;
+}
+.group-list-heading {
+    font-weight: 700;
+    font-size: .95rem;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+.group-row {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    padding: .85rem;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: .6rem;
+    transition: border-color .15s;
+}
+.group-row:last-child { margin-bottom: 0; }
+.group-row:hover { border-color: #a5b4fc; }
+.group-icon-sm {
+    width: 38px; height: 38px;
+    background: #eef2ff;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+}
+.group-info { flex: 1; min-width: 0; }
+.group-nm { font-weight: 700; font-size: .9rem; color: #111827; }
+.group-meta { font-size: .76rem; color: #6b7280; margin-top: .15rem; }
+.group-badge {
+    padding: .25rem .65rem;
+    background: #ede9fe;
+    color: #6d28d9;
+    border-radius: 999px;
+    font-size: .72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.group-open-btn {
+    padding: .3rem .8rem;
+    background: #4f46e5;
+    color: #fff;
+    border-radius: 8px;
+    font-size: .78rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.group-open-btn:hover { background: #4338ca; }
+</style>
 @endpush
 
 @section('content')
@@ -72,6 +130,38 @@
         </div>
 
     </div>
+
+    {{-- MY GROUPS LIST (always visible, same pattern as My Sections & My Teacher) --}}
+    @if($myGroups->isNotEmpty())
+    <div class="group-list-card">
+        <div class="group-list-heading">👥 My Groups ({{ $myGroups->count() }})</div>
+
+        @foreach($myGroups as $group)
+        <div class="group-row">
+            <div class="group-icon-sm">👥</div>
+            <div class="group-info">
+                <div class="group-nm">{{ $group->name }}</div>
+                <div class="group-meta">
+                    👩‍🏫 {{ $group->teacher->name ?? 'Teacher' }}
+                    @if($group->section)
+                        @if($group->section->subject)
+                            &nbsp;·&nbsp; 📚 {{ $group->section->subject }}
+                        @endif
+                        @if($group->section->name)
+                            &nbsp;·&nbsp; {{ $group->section->name }}
+                        @endif
+                    @endif
+                    @if($group->projects && $group->projects->count())
+                        &nbsp;·&nbsp; 📂 {{ $group->projects->count() }} {{ Str::plural('project', $group->projects->count()) }}
+                    @endif
+                </div>
+            </div>
+            <span class="group-badge">✅ Joined</span>
+            <a href="{{ route('student.groups.show', $group->id) }}" class="group-open-btn">Open →</a>
+        </div>
+        @endforeach
+    </div>
+    @endif
 
 </div>
 

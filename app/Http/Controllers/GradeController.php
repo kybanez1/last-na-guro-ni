@@ -22,7 +22,7 @@ class GradeController extends Controller
             abort(403, 'Unauthorized');
         }
 
-        $gradedProjects = Project::with(['group', 'submissions'])
+        $gradedProjects = Project::with(['group.section', 'section', 'submissions', 'assignments'])
             ->where('teacher_id', $teacher->id)
             ->whereHas('submissions', function ($q) {
                 $q->where('status', 'graded');

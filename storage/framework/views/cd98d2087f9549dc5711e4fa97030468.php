@@ -94,7 +94,7 @@
                     <select id="groupSectionFilter" onchange="filterGroupsBySection(this.value)">
                         <option value="">— All sections —</option>
                         <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($sec->id); ?>"><?php echo e($sec->name); ?><?php echo e($sec->school_year ? ' · '.$sec->school_year : ''); ?><?php echo e($sec->semester ? ' · '.$sec->semester : ''); ?></option>
+                        <option value="<?php echo e($sec->id); ?>"><?php echo e($sec->name); ?><?php echo e($sec->subject ? ' · '.$sec->subject : ''); ?><?php echo e($sec->school_year ? ' · '.$sec->school_year : ''); ?><?php echo e($sec->semester ? ' · '.$sec->semester : ''); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                 </div>
@@ -124,10 +124,10 @@
                     ?>
                     <div class="filter-row">
                         <?php if($sections->isNotEmpty()): ?>
-                        <select id="studentSectionFilter" onchange="filterStudentsBySection(this.value)">
+                        <select id="studentSectionFilter" name="section_id" onchange="filterStudentsBySection(this.value)">
                             <option value="">— All sections —</option>
                             <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($sec->id); ?>"><?php echo e($sec->name); ?></option>
+                            <option value="<?php echo e($sec->id); ?>" <?php echo e(old('section_id') == $sec->id ? 'selected' : ''); ?>><?php echo e($sec->name); ?><?php echo e($sec->subject ? ' · '.$sec->subject : ''); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                         <?php endif; ?>

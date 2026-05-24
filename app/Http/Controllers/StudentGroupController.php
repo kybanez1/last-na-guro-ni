@@ -22,7 +22,9 @@ class StudentGroupController extends Controller
             abort(403);
         }
 
-        return view('student.group.join');
+        $myGroups = $student->joinedGroups()->with(['teacher', 'section', 'projects'])->get();
+
+        return view('student.group.join', compact('myGroups'));
     }
 
     /**
@@ -71,8 +73,10 @@ class StudentGroupController extends Controller
             ->exists();
 
         if ($alreadyJoined) {
+            $group->load(['teacher', 'section', 'projects']);
             return back()
                 ->withInput()
+                ->with('already_joined_group', $group)
                 ->withErrors(['join_code' => 'You have already joined "' . $group->name . '" with this code.']);
         }
 
@@ -117,7 +121,7 @@ class StudentGroupController extends Controller
     {
         $student = auth()->user();
 
-        $group->load(['teacher', 'students', 'projects']);
+        $group->load(['teacher', 'section', 'students', 'projects']);
 
         // Must have joined via code (is_joined = 1)
         $hasJoined = $group->joinedStudents()

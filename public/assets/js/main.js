@@ -103,11 +103,49 @@ let menu, animate;
   // Speech To Text
   window.Helpers.initSpeechToText();
 
+  // ── Overlay: clicking it should only CLOSE the sidebar, never open ──
+  var overlay = document.getElementById('layout-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', function () {
+      if (window.Helpers.isSmallScreen() && !window.Helpers.isCollapsed()) {
+        window.Helpers.setCollapsed(true, true);
+      }
+    });
+  }
+  // ─────────────────────────────────────────────────────────────────────
+
+  // ── Mobile: close sidebar when a menu-link is clicked before navigating ──
+  document.addEventListener('click', function (e) {
+    if (!window.Helpers.isSmallScreen()) return;
+    var link = e.target.closest('.menu-link');
+    if (!link) return;
+    // Remove the expanded class immediately so the next page loads closed
+    document.documentElement.classList.remove('layout-menu-expanded');
+  });
+  // ──────────────────────────────────────────────────────────────────────
+  document.addEventListener('click', function (e) {
+    if (!window.Helpers.isSmallScreen()) return;
+    if (window.Helpers.isCollapsed()) return; // already closed
+
+    var layoutMenu = document.getElementById('layout-menu');
+    var navbar     = document.querySelector('.layout-navbar');
+
+    // If the click is inside the menu or on the hamburger toggle, do nothing
+    if (layoutMenu && layoutMenu.contains(e.target)) return;
+    if (navbar     && navbar.contains(e.target))     return;
+
+    // Close the sidebar
+    window.Helpers.setCollapsed(true, true);
+  });
+  // ──────────────────────────────────────────────────────────────────────
+
   // Manage menu expanded/collapsed with templateCustomizer & local storage
   //------------------------------------------------------------------
 
   // If current layout is horizontal OR current window screen is small (overlay menu) than return from here
   if (window.Helpers.isSmallScreen()) {
+    // Always start with sidebar CLOSED on mobile/small screens
+    window.Helpers.setCollapsed(true, false);
     return;
   }
 

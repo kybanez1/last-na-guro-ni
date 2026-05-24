@@ -56,6 +56,29 @@
                         @endif
                     </div>
                 </div>
+                @if($isGroupProject)
+                <div>
+                    <div class="label">Subject</div>
+                    <div class="value">
+                        @if($project->subject)
+                            <span style="color:#7c3aed;font-weight:600;">📚 {{ $project->subject }}</span>
+                        @else
+                            <span style="color:#9ca3af;">—</span>
+                        @endif
+                    </div>
+                </div>
+                @else
+                <div>
+                    <div class="label">Subject</div>
+                    <div class="value">
+                        @if($project->subject)
+                            <span style="color:#7c3aed;font-weight:600;">📚 {{ $project->subject }}</span>
+                        @else
+                            <span style="color:#9ca3af;">—</span>
+                        @endif
+                    </div>
+                </div>
+                @endif
                 <div>
                     <div class="label">Requirements</div>
                     <div class="value">{{ $project->requirements ?: 'No requirements provided.' }}</div>

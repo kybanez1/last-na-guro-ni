@@ -33,6 +33,7 @@ class Project extends Model
         'instruction_file_uploaded_at',
         'instruction_link',
         'group_id',
+        'section_id',
         'teacher_id',
         'start_date',
         'due_date',
@@ -65,6 +66,14 @@ class Project extends Model
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
+    }
+
+    /**
+     * Section Relationship (direct — used for individual projects)
+     */
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Section::class);
     }
 
     /**
@@ -143,11 +152,17 @@ class Project extends Model
             ->withTimestamps();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | ASSIGNMENT LOGIC
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Get subject — works for both group and individual projects.
+     * Group project  → group → section → subject
+     * Individual     → direct section_id → subject
+     */
+    public function getSubjectAttribute(): ?string
+    {
+        return $this->group?->section?->subject
+            ?? $this->section?->subject
+            ?? null;
+    }
 
     /**
      * Assign Project to Student

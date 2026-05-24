@@ -248,6 +248,10 @@
 
                             </div>
 
+                            @if($project->subject)
+                                <div style="font-size:.73rem;color:#7c3aed;font-weight:600;margin-top:3px;">📚 {{ $project->subject }}</div>
+                            @endif
+
                         </div>
 
                         <span class="status-badge {{ $status }}">

@@ -28,6 +28,10 @@
 
             Due:
             {{ \Carbon\Carbon::parse($project->due_date)->format('M d, Y') }}
+
+            @if($project->subject)
+                · 📚 {{ $project->subject }}
+            @endif
         </div>
 
         <!-- DESCRIPTION -->
