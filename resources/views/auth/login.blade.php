@@ -118,18 +118,14 @@
                             <input type="email" id="tr-email" name="email" value="{{ old('email') }}" required placeholder="m.santos@school.edu" />
                         </div>
                         <div class="field">
-                            <label for="tr-dept">Department / Subject</label>
-                            <select id="tr-dept" name="department">
+                            <label for="tr-dept">Department</label>
+                            <select id="tr-dept" name="department" required>
                                 <option value="">— Select Department —</option>
-                                <option value="Computer Science">Computer Science</option>
-                                <option value="Information Technology">Information Technology</option>
-                                <option value="Engineering">Engineering</option>
-                                <option value="Mathematics">Mathematics</option>
-                                <option value="Natural Sciences">Natural Sciences</option>
-                                <option value="Business Administration">Business Administration</option>
-                                <option value="Social Sciences">Social Sciences</option>
-                                <option value="Arts and Humanities">Arts and Humanities</option>
-                                <option value="Other">Other</option>
+                                <option value="CBT">College of Business Technology (CBT)</option>
+                                <option value="CTE">College of Teacher Education (CTE)</option>
+                                <option value="CCIS">College of Computing and Information Sciences (CCIS)</option>
+                                <option value="COE">College of Engineering (COE)</option>
+                                <option value="CAS">College of Arts and Sciences (CAS)</option>
                             </select>
                         </div>
                         <div class="field-row">
@@ -176,17 +172,19 @@
                             </div>
                             <div class="field">
                                 <label for="sr-course">Course / Program</label>
-                                <select id="sr-course" name="department">
+                                <select id="sr-course" name="department" required>
                                     <option value="">— Select Course —</option>
-                                    <option value="BSCS">BS Computer Science</option>
-                                    <option value="BSIT">BS Information Technology</option>
-                                    <option value="BSEE">BS Electrical Engineering</option>
-                                    <option value="BSCE">BS Civil Engineering</option>
-                                    <option value="BSME">BS Mechanical Engineering</option>
-                                    <option value="BSBA">BS Business Administration</option>
-                                    <option value="BSMath">BS Mathematics</option>
-                                    <option value="BSED">BS Education</option>
-                                    <option value="Other">Other</option>
+                                    <option value="BSICT">BS Information Communication Technology (BSICT)</option>
+                                    <option value="BSIS">BS Information System (BSIS)</option>
+                                    <option value="BSCS">BS Computer Science (BSCS)</option>
+                                    <option value="BSIT">BS Information Technology (BSIT)</option>
+                                    <option value="BSED">BS Education (BSED)</option>
+                                    <option value="BEED">Bachelor of Elementary Education (BEED)</option>
+                                    <option value="BSA">BS Accountancy (BSA)</option>
+                                    <option value="BSBA">BS Business Administration (BSBA)</option>
+                                    <option value="BSCE">BS Civil Engineering (BSCE)</option>
+                                    <option value="BSEE">BS Electrical Engineering (BSEE)</option>
+                                    <option value="BSME">BS Mechanical Engineering (BSME)</option>
                                 </select>
                             </div>
                         </div>

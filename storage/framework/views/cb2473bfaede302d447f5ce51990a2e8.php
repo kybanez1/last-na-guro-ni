@@ -82,6 +82,9 @@
             </div>
 
             <div class="section-name"><?php echo e($section->name); ?></div>
+            <?php if($section->subject): ?>
+                <div style="font-size:.78rem;color:#6366f1;font-weight:600;margin-top:2px;">📚 <?php echo e($section->subject); ?></div>
+            <?php endif; ?>
             <div class="section-desc"><?php echo e($section->description ?: 'No description.'); ?></div>
 
             <div class="section-code-row">
@@ -144,6 +147,19 @@
         <div class="modal-body">
             <form method="POST" action="<?php echo e(route('teacher.sections.store')); ?>">
                 <?php echo csrf_field(); ?>
+                <div class="form-group">
+                    <label>Subject <span style="color:#ef4444">*</span></label>
+                    <input type="text" name="subject" value="<?php echo e(old('subject')); ?>"
+                           placeholder="e.g. Ethics, Programming, Mathematics" required autofocus>
+                    <?php $__errorArgs = ['subject'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><div style="color:#dc2626;font-size:.75rem;margin-top:.3rem;"><?php echo e($message); ?></div><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                </div>
                 <div class="form-group">
                     <label>Section Name <span style="color:#ef4444">*</span></label>
                     <input type="text" name="name" value="<?php echo e(old('name')); ?>"

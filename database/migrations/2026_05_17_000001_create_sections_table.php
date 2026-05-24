@@ -12,6 +12,7 @@ return new class extends Migration
             Schema::create('sections', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('teacher_id')->constrained('users')->cascadeOnDelete();
+                $table->string('subject')->nullable();       // e.g. Ethics, Programming
                 $table->string('name');              // e.g. BSICT-2A1
                 $table->string('code', 8)->unique(); // e.g. SEC-A1B2
                 $table->string('description')->nullable();

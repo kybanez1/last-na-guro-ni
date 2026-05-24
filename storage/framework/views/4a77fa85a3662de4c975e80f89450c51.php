@@ -42,6 +42,7 @@
                     <?php if($group->section): ?>
                         🏷️ <?php echo e($group->section->name); ?>
 
+                        <?php if($group->section->subject): ?> · 📚 <?php echo e($group->section->subject); ?><?php endif; ?>
                         <?php if($group->section->school_year): ?> · <?php echo e($group->section->school_year); ?><?php endif; ?>
                         <?php if($group->section->semester): ?> · <?php echo e($group->section->semester); ?><?php endif; ?>
                     <?php else: ?>
@@ -131,7 +132,7 @@
 
                 
                 <div class="form-group">
-                    <label>Class Section <span style="color:#9ca3af;font-weight:400;font-size:.8rem;">(optional)</span></label>
+                    <label>Class Section <span style="color:#ef4444">*</span></label>
                     <?php if($sections->isEmpty()): ?>
                         <div style="padding:.75rem 1rem;background:#fffbeb;border:1.5px dashed #fbbf24;border-radius:8px;font-size:.82rem;color:#92400e;">
                             ⚠️ No sections found.
@@ -141,7 +142,7 @@
                         <input type="hidden" name="section_id" value="">
                     <?php else: ?>
                         <div style="position:relative;">
-                            <select name="section_id" id="sectionPicker"
+                            <select name="section_id" id="sectionPicker" required
                                 style="width:100%;padding:.55rem 2.2rem .55rem .85rem;border:1.5px solid #e5e7eb;border-radius:8px;font-size:.88rem;background:#fff;color:#374151;appearance:none;cursor:pointer;transition:border-color .2s;">
                                 <option value="">— Select a class section —</option>
                                 <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -152,6 +153,7 @@
                                         data-students='<?php echo e(json_encode($sec->students->pluck("id"))); ?>'>
                                         <?php echo e($sec->name); ?>
 
+                                        <?php if($sec->subject): ?> · 📚 <?php echo e($sec->subject); ?><?php endif; ?>
                                         <?php if($sec->school_year): ?> · <?php echo e($sec->school_year); ?><?php endif; ?>
                                         <?php if($sec->semester): ?> · <?php echo e($sec->semester); ?><?php endif; ?>
                                     </option>

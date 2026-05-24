@@ -43,6 +43,7 @@
                 <div class="group-desc">
                     @if($group->section)
                         🏷️ {{ $group->section->name }}
+                        @if($group->section->subject) · 📚 {{ $group->section->subject }}@endif
                         @if($group->section->school_year) · {{ $group->section->school_year }}@endif
                         @if($group->section->semester) · {{ $group->section->semester }}@endif
                     @else
@@ -134,7 +135,7 @@
 
                 {{-- Class Section --}}
                 <div class="form-group">
-                    <label>Class Section <span style="color:#9ca3af;font-weight:400;font-size:.8rem;">(optional)</span></label>
+                    <label>Class Section <span style="color:#ef4444">*</span></label>
                     @if($sections->isEmpty())
                         <div style="padding:.75rem 1rem;background:#fffbeb;border:1.5px dashed #fbbf24;border-radius:8px;font-size:.82rem;color:#92400e;">
                             ⚠️ No sections found.
@@ -144,7 +145,7 @@
                         <input type="hidden" name="section_id" value="">
                     @else
                         <div style="position:relative;">
-                            <select name="section_id" id="sectionPicker"
+                            <select name="section_id" id="sectionPicker" required
                                 style="width:100%;padding:.55rem 2.2rem .55rem .85rem;border:1.5px solid #e5e7eb;border-radius:8px;font-size:.88rem;background:#fff;color:#374151;appearance:none;cursor:pointer;transition:border-color .2s;">
                                 <option value="">— Select a class section —</option>
                                 @foreach($sections as $sec)
@@ -153,6 +154,7 @@
                                         data-name="{{ $sec->name }}"
                                         data-students='{{ json_encode($sec->students->pluck("id")) }}'>
                                         {{ $sec->name }}
+                                        @if($sec->subject) · 📚 {{ $sec->subject }}@endif
                                         @if($sec->school_year) · {{ $sec->school_year }}@endif
                                         @if($sec->semester) · {{ $sec->semester }}@endif
                                     </option>

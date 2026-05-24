@@ -79,6 +79,7 @@
                 <div class="section-nm">{{ $sec->name }}</div>
                 <div class="section-meta">
                     👩‍🏫 {{ $sec->teacher->name ?? 'Unknown' }}
+                    @if($sec->subject) &nbsp;·&nbsp; 📚 {{ $sec->subject }} @endif
                     @if($sec->school_year) &nbsp;·&nbsp; {{ $sec->school_year }} @endif
                     @if($sec->semester) &nbsp;·&nbsp; {{ $sec->semester }} @endif
                 </div>

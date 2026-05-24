@@ -72,6 +72,9 @@ tr:last-child td { border-bottom:none; }
         </div>
         <div class="card-body">
             <div class="section-name-big">{{ $section->name }}</div>
+            @if($section->subject)
+                <div style="font-size:.85rem;color:#4f46e5;font-weight:600;margin-bottom:.25rem;">📚 {{ $section->subject }}</div>
+            @endif
             <div class="section-desc">{{ $section->description ?: 'No description set.' }}</div>
 
             <div style="margin-bottom:.65rem;font-size:.8rem;font-weight:600;color:#6b7280;">SECTION JOIN CODE</div>
@@ -90,6 +93,12 @@ tr:last-child td { border-bottom:none; }
                     <div class="info-label">Students</div>
                     <div class="info-val">{{ $section->students->count() }}</div>
                 </div>
+                @if($section->subject)
+                <div class="info-item">
+                    <div class="info-label">Subject</div>
+                    <div class="info-val">{{ $section->subject }}</div>
+                </div>
+                @endif
                 @if($section->school_year)
                 <div class="info-item">
                     <div class="info-label">School Year</div>
@@ -115,6 +124,10 @@ tr:last-child td { border-bottom:none; }
                     <form method="POST" action="{{ route('teacher.sections.update', $section->id) }}">
                         @csrf @method('PUT')
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+                            <div class="form-group" style="grid-column:1/-1;">
+                                <label>Subject</label>
+                                <input type="text" name="subject" value="{{ $section->subject }}" placeholder="e.g. Ethics, Programming">
+                            </div>
                             <div class="form-group" style="grid-column:1/-1;">
                                 <label>Section Name</label>
                                 <input type="text" name="name" value="{{ $section->name }}" required>

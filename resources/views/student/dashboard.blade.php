@@ -227,6 +227,7 @@
                                     <div class="group-name">{{ $section->name }}</div>
                                     <div class="group-teacher">
                                         👩‍🏫 {{ $section->teacher->name ?? 'Teacher' }}
+                                        @if($section->subject) &nbsp;·&nbsp; 📚 {{ $section->subject }} @endif
                                         @if($section->school_year) &nbsp;·&nbsp; {{ $section->school_year }} @endif
                                         @if($section->semester) &nbsp;·&nbsp; {{ $section->semester }} @endif
                                     </div>

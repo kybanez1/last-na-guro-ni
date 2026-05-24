@@ -83,6 +83,9 @@
             </div>
 
             <div class="section-name">{{ $section->name }}</div>
+            @if($section->subject)
+                <div style="font-size:.78rem;color:#6366f1;font-weight:600;margin-top:2px;">📚 {{ $section->subject }}</div>
+            @endif
             <div class="section-desc">{{ $section->description ?: 'No description.' }}</div>
 
             <div class="section-code-row">
@@ -144,6 +147,12 @@
         <div class="modal-body">
             <form method="POST" action="{{ route('teacher.sections.store') }}">
                 @csrf
+                <div class="form-group">
+                    <label>Subject <span style="color:#ef4444">*</span></label>
+                    <input type="text" name="subject" value="{{ old('subject') }}"
+                           placeholder="e.g. Ethics, Programming, Mathematics" required autofocus>
+                    @error('subject')<div style="color:#dc2626;font-size:.75rem;margin-top:.3rem;">{{ $message }}</div>@enderror
+                </div>
                 <div class="form-group">
                     <label>Section Name <span style="color:#ef4444">*</span></label>
                     <input type="text" name="name" value="{{ old('name') }}"

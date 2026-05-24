@@ -25,10 +25,11 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Password::defaults()],
-            'role'     => ['required', 'in:student,teacher'],
+            'name'       => ['required', 'string', 'max:255'],
+            'email'      => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'   => ['required', 'confirmed', Password::defaults()],
+            'role'       => ['required', 'in:student,teacher'],
+            'department' => ['required', 'string', 'max:255'],
         ]);
 
         $user = User::create([

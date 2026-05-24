@@ -33,11 +33,13 @@ class SectionController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
+            'subject'     => 'required|string|max:100',
             'name'        => 'required|string|max:100',
             'description' => 'nullable|string|max:500',
             'school_year' => 'required|string|max:20',
             'semester'    => 'required|string|max:30',
         ], [
+            'subject.required'     => 'Subject is required.',
             'name.required'        => 'Section name is required.',
             'school_year.required' => 'School year is required.',
             'semester.required'    => 'Semester is required.',
@@ -45,6 +47,7 @@ class SectionController extends Controller
 
         $section = Section::create([
             'teacher_id'  => auth()->id(),
+            'subject'     => $validated['subject'],
             'name'        => $validated['name'],
             'description' => $validated['description'] ?? null,
             'school_year' => $validated['school_year'] ?? null,
@@ -87,6 +90,7 @@ class SectionController extends Controller
         if ($section->teacher_id !== auth()->id()) abort(403);
 
         $validated = $request->validate([
+            'subject'     => 'nullable|string|max:100',
             'name'        => 'required|string|max:100',
             'description' => 'nullable|string|max:500',
             'school_year' => 'nullable|string|max:20',
