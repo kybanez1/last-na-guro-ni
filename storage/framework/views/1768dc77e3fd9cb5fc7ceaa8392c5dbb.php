@@ -79,9 +79,8 @@
                                 <td><strong><?php echo e($project->title); ?></strong></td>
                                 <td><?php echo e($project->group->name ?? '—'); ?></td>
                                 <td>
-                                    <?php $subj = $project->group->section->subject ?? null; ?>
-                                    <?php if($subj): ?>
-                                        <span style="font-size:.75rem;color:#7c3aed;font-weight:600;background:#f5f3ff;padding:2px 7px;border-radius:6px;"><?php echo e($subj); ?></span>
+                                    <?php if($project->subject): ?>
+                                        <span style="font-size:.75rem;color:#7c3aed;font-weight:600;background:#f5f3ff;padding:2px 7px;border-radius:6px;"><?php echo e($project->subject); ?></span>
                                     <?php else: ?>
                                         <span style="color:#9ca3af;">—</span>
                                     <?php endif; ?>

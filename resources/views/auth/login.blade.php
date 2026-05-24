@@ -118,7 +118,7 @@
                             <input type="email" id="tr-email" name="email" value="{{ old('email') }}" required placeholder="m.santos@school.edu" />
                         </div>
                         <div class="field">
-                            <label for="tr-dept">Department / Subject</label>
+                            <label for="tr-dept">Department</label>
                             <select id="tr-dept" name="department" required>
                                 <option value="">— Select Department —</option>
                                 <option value="CBT">College of Business Technology (CBT)</option>
@@ -180,15 +180,9 @@
                                     <option value="BSIT">BS Information Technology (BSIT)</option>
                                     <option value="BSED">BS Education (BSED)</option>
                                     <option value="BEED">Bachelor of Elementary Education (BEED)</option>
-                                    <option value="BSA">BS Accountancy (BSA)</option>
-                                    <option value="BSBA">BS Business Administration (BSBA)</option>
                                     <option value="BSCE">BS Civil Engineering (BSCE)</option>
                                     <option value="BSEE">BS Electrical Engineering (BSEE)</option>
                                     <option value="BSME">BS Mechanical Engineering (BSME)</option>
-                                    <option value="BSOA">BS Office Administration (BSOA)</option>
-                                    <option value="BSN">BS Nursing (BSN)</option>
-                                    <option value="BSCRIM">BS Criminology (BSCRIM)</option>
-                                    <option value="BSPSY">BS Psychology (BSPSY)</option>
                                 </select>
                             </div>
                         </div>

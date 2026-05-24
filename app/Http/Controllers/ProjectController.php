@@ -115,6 +115,22 @@ class ProjectController extends Controller
 
         /*
         |--------------------------------------------------------------------------
+        | ASSIGN-TO REQUIRED — must select a group OR at least one student
+        |--------------------------------------------------------------------------
+        */
+        $hasGroup    = !empty($validated['group_id']);
+        $hasStudents = !empty($validated['student_ids']);
+
+        if (!$hasGroup && !$hasStudents) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'assign_to' => 'Please select a group or at least one student to assign this project to.',
+                ]);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
         | VERIFY GROUP OWNERSHIP
         |--------------------------------------------------------------------------
         */
@@ -402,6 +418,22 @@ class ProjectController extends Controller
             'due_date.required'    => 'Due date is required.',
             'due_date.after_or_equal' => 'Due date must be on or after the start date.',
         ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | ASSIGN-TO REQUIRED — must select a group OR at least one student
+        |--------------------------------------------------------------------------
+        */
+        $hasGroup    = !empty($validated['group_id']);
+        $hasStudents = !empty($validated['student_ids']);
+
+        if (!$hasGroup && !$hasStudents) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'assign_to' => 'Please select a group or at least one student to assign this project to.',
+                ]);
+        }
 
         /*
         |--------------------------------------------------------------------------

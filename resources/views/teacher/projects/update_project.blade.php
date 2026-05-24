@@ -115,7 +115,13 @@
 
         {{-- ASSIGN TO --}}
         <div class="field">
-            <label>Assign To</label>
+            <label>Assign To <span style="color:#ef4444">*</span></label>
+            @error('assign_to')
+                <div style="margin-bottom:.5rem;padding:.6rem 1rem;background:#fee2e2;color:#991b1b;border:1px solid #fecaca;border-radius:8px;font-size:.85rem;">
+                    ⚠️ {{ $message }}
+                </div>
+            @enderror
+            <div id="assignErrorBox" style="display:none;margin-bottom:.5rem;padding:.6rem 1rem;background:#fee2e2;color:#991b1b;border:1px solid #fecaca;border-radius:8px;font-size:.85rem;"></div>
             <div class="assign-tabs">
                 <button type="button" class="assign-tab active" id="atab-group"      onclick="switchAssign('group')">👥 Group</button>
                 <button type="button" class="assign-tab"        id="atab-individual" onclick="switchAssign('individual')">🧑 Individual Students</button>
@@ -274,6 +280,7 @@ function switchAssign(mode) {
         var gs = document.getElementById('groupSelect');
         if (gs) gs.value = '';
     }
+    clearAssignError();
 }
 function filterGroupsBySection(sId) {
     var opts = document.querySelectorAll('#groupSelect option');
@@ -302,6 +309,38 @@ function filterStudents() {
     });
     document.getElementById('noMatch').style.display = vis === 0 ? 'block' : 'none';
 }
+// ── ASSIGN-TO VALIDATION ──────────────────────────────────────────────────
+function showAssignError(msg) {
+    var box = document.getElementById('assignErrorBox');
+    if (box) { box.textContent = '⚠️ ' + msg; box.style.display = 'block'; }
+}
+function clearAssignError() {
+    var box = document.getElementById('assignErrorBox');
+    if (box) box.style.display = 'none';
+}
+document.querySelector('form').addEventListener('submit', function(e) {
+    var isGroup = document.getElementById('atab-group').classList.contains('active');
+    var valid = false;
+    if (isGroup) {
+        var gs = document.getElementById('groupSelect');
+        valid = gs && gs.value !== '';
+        if (!valid) showAssignError('Please select a group before saving the project.');
+    } else {
+        var checked = document.querySelectorAll('input[name="student_ids[]"]:checked');
+        valid = checked.length > 0;
+        if (!valid) showAssignError('Please select at least one student before saving the project.');
+    }
+    if (!valid) {
+        e.preventDefault();
+        document.getElementById('assignErrorBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+});
+document.addEventListener('change', function(e) {
+    if (e.target && (e.target.id === 'groupSelect' || e.target.name === 'student_ids[]')) {
+        clearAssignError();
+    }
+});
+
 // Auto-switch to individual tab if students are pre-selected
 @if($project->group_id)
     // group project - stay on group tab

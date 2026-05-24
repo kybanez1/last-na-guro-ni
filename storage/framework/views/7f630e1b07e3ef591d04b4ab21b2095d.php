@@ -45,9 +45,8 @@
 
                         </div>
 
-                        <?php $gpSubject = $project->group->section->subject ?? null; ?>
-                        <?php if($gpSubject): ?>
-                            <div style="font-size:.78rem;color:#7c3aed;font-weight:600;margin-bottom:.5rem;">📚 <?php echo e($gpSubject); ?></div>
+                        <?php if($project->subject): ?>
+                            <div style="font-size:.78rem;color:#7c3aed;font-weight:600;margin-bottom:.5rem;">📚 <?php echo e($project->subject); ?></div>
                         <?php endif; ?>
 
                         <div class="stats">

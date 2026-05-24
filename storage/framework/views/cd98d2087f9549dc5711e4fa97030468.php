@@ -81,7 +81,21 @@
 
         
         <div class="field">
-            <label>Assign To</label>
+            <label>Assign To <span style="color:#ef4444">*</span></label>
+            <?php $__errorArgs = ['assign_to'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div style="margin-bottom:.5rem;padding:.6rem 1rem;background:#fee2e2;color:#991b1b;border:1px solid #fecaca;border-radius:8px;font-size:.85rem;">
+                    ⚠️ <?php echo e($message); ?>
+
+                </div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+            <div id="assignErrorBox" style="display:none;margin-bottom:.5rem;padding:.6rem 1rem;background:#fee2e2;color:#991b1b;border:1px solid #fecaca;border-radius:8px;font-size:.85rem;"></div>
             <div class="assign-tabs">
                 <button type="button" class="assign-tab active" id="atab-group"      onclick="switchAssign('group')">👥 Group</button>
                 <button type="button" class="assign-tab"        id="atab-individual" onclick="switchAssign('individual')">🧑 Individual Students</button>
@@ -204,6 +218,7 @@ function switchAssign(mode) {
         var gs = document.getElementById('groupSelect');
         if (gs) gs.value = '';
     }
+    clearAssignError();
 }
 function filterGroupsBySection(sId) {
     var opts = document.querySelectorAll('#groupSelect option');
@@ -232,6 +247,47 @@ function filterStudents() {
     });
     document.getElementById('noMatch').style.display = vis === 0 ? 'block' : 'none';
 }
+
+// ── ASSIGN-TO VALIDATION ──────────────────────────────────────────────────
+function getAssignMode() {
+    return document.getElementById('atab-group').classList.contains('active') ? 'group' : 'individual';
+}
+function showAssignError(msg) {
+    var box = document.getElementById('assignErrorBox');
+    if (box) { box.textContent = '⚠️ ' + msg; box.style.display = 'block'; }
+}
+function clearAssignError() {
+    var box = document.getElementById('assignErrorBox');
+    if (box) box.style.display = 'none';
+}
+
+document.querySelector('form').addEventListener('submit', function(e) {
+    var mode = getAssignMode();
+    var valid = false;
+
+    if (mode === 'group') {
+        var gs = document.getElementById('groupSelect');
+        valid = gs && gs.value !== '';
+        if (!valid) showAssignError('Please select a group before creating the project.');
+    } else {
+        var checked = document.querySelectorAll('input[name="student_ids[]"]:checked');
+        valid = checked.length > 0;
+        if (!valid) showAssignError('Please select at least one student before creating the project.');
+    }
+
+    if (!valid) {
+        e.preventDefault();
+        document.getElementById('assignErrorBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+});
+
+// Clear error when user makes a selection
+document.addEventListener('change', function(e) {
+    if (e.target && (e.target.id === 'groupSelect' || e.target.name === 'student_ids[]')) {
+        clearAssignError();
+    }
+});
+
 <?php if(old('student_ids')): ?>
     switchAssign('individual');
 <?php endif; ?>
