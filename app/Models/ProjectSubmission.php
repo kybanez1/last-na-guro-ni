@@ -34,6 +34,7 @@ class ProjectSubmission extends Model
 
         'graded_at',
         'task_score',
+        'is_late',
     ];
 
     protected $casts = [
@@ -41,6 +42,8 @@ class ProjectSubmission extends Model
         'submitted_at' => 'datetime',
 
         'graded_at' => 'datetime',
+
+        'is_late' => 'boolean',
     ];
 
     /*

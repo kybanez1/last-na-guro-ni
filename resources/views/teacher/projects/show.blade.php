@@ -182,6 +182,17 @@
                                 {{ $pStatus === 'graded' ? 'status-graded' : ($pStatus === 'submitted' ? 'status-submitted' : 'status-pending') }}">
                                 {{ ucfirst($pStatus) }}
                             </span>
+                            @php
+                                $studentLateSub = \App\Models\ProjectSubmission::where('project_id', $project->id)
+                                    ->where('student_id', $assignedStudent->id)
+                                    ->whereNull('task_id')
+                                    ->latest()->first();
+                            @endphp
+                            @if($studentLateSub && $studentLateSub->is_late)
+                                <span style="display:inline-block;margin-left:4px;padding:1px 7px;background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:999px;font-size:.68rem;font-weight:700;">
+                                    🕐 Late
+                                </span>
+                            @endif
                         </td>
                         <td>
                             @if($pivot && $pivot->score !== null)
@@ -345,6 +356,11 @@
                                 {{ $submission->submitted_at
                                     ? $submission->submitted_at->format('M d, Y h:i A')
                                     : '—' }}
+                                @if($submission->is_late)
+                                    <span style="display:inline-block;margin-left:4px;padding:1px 7px;background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:999px;font-size:.7rem;font-weight:700;">
+                                        🕐 Late
+                                    </span>
+                                @endif
                             </td>
                             <td>
                                 @if($submission->file_path)

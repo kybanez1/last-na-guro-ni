@@ -346,6 +346,13 @@ class StudentProjectController extends Controller
 
         /*
         |--------------------------------------------------------------------------
+        | LATE DETECTION — check if submission is after the project due_date
+        |--------------------------------------------------------------------------
+        */
+        $isLate = $project->due_date && now()->isAfter($project->due_date);
+
+        /*
+        |--------------------------------------------------------------------------
         | UPDATE OR CREATE
         |--------------------------------------------------------------------------
         */
@@ -356,6 +363,7 @@ class StudentProjectController extends Controller
                 'file_path'    => $filePath,
                 'status'       => 'submitted',
                 'submitted_at' => now(),
+                'is_late'      => $isLate,
             ]);
 
         } else {
@@ -368,6 +376,7 @@ class StudentProjectController extends Controller
                 'file_path'    => $filePath,
                 'status'       => 'submitted',
                 'submitted_at' => now(),
+                'is_late'      => $isLate,
             ]);
         }
 
@@ -438,7 +447,9 @@ class StudentProjectController extends Controller
             )
             ->with(
                 'success',
-                'Task submitted successfully.'
+                $isLate
+                    ? 'Task submitted successfully. Note: This is a late submission.'
+                    : 'Task submitted successfully.'
             );
     }
 }

@@ -34,6 +34,11 @@
                     ? $submission->submitted_at->format('M d, Y h:i A')
                     : '—'
                 }}
+                @if($submission->is_late)
+                    <span style="display:inline-block;margin-left:8px;padding:3px 10px;background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:999px;font-size:.78rem;font-weight:700;">
+                        🕐 Late Submission
+                    </span>
+                @endif
             </div>
         </div>
 

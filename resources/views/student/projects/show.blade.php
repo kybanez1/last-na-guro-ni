@@ -193,6 +193,13 @@
                                         {{ $taskSubmission->submitted_at->format('M d, Y h:i A') }}
                                     </div>
 
+                                    @if($taskSubmission->is_late)
+                                        <div class="meta-pill"
+                                             style="background:#fef3c7;color:#92400e;font-weight:700;border:1px solid #fde68a;">
+                                            🕐 Late Submission
+                                        </div>
+                                    @endif
+
                                     {{-- For group projects, show who submitted --}}
                                     @if($project->group_id && $taskSubmission->student_id !== auth()->id())
                                         <div class="meta-pill"
@@ -288,6 +295,12 @@
                             <div class="meta-pill" style="background:#dcfce7;color:#166534;">
                                 ✅ Submitted: {{ $generalSubmission->submitted_at->format('M d, Y h:i A') }}
                             </div>
+                            @if($generalSubmission->is_late)
+                                <div class="meta-pill"
+                                     style="background:#fef3c7;color:#92400e;font-weight:700;border:1px solid #fde68a;">
+                                    🕐 Late Submission
+                                </div>
+                            @endif
                         @endif
 
                         @if($isGraded && $generalSubmission->score !== null)
