@@ -17,6 +17,34 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\ProjectSubmissionController;
 use App\Http\Controllers\TeacherStudentController;
 use App\Http\Controllers\StudentTeacherController;
+use App\Http\Controllers\FileController;
+
+/*
+|--------------------------------------------------------------------------
+| FILE SERVING ROUTES (auth-protected, works without storage:link)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    // Instruction file — view inline (teacher + student)
+    Route::get(
+        '/files/instruction/{project}',
+        [FileController::class, 'instruction']
+    )->name('files.instruction');
+
+    // Instruction file — force download (teacher + student)
+    Route::get(
+        '/files/instruction/{project}/download',
+        [FileController::class, 'instructionDownload']
+    )->name('files.instruction.download');
+
+    // Submission file — view inline (teacher + submitting student/group)
+    Route::get(
+        '/files/submission/{submission}',
+        [FileController::class, 'submission']
+    )->name('files.submission');
+});
 
 /*
 |--------------------------------------------------------------------------

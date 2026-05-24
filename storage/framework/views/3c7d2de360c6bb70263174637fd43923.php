@@ -174,7 +174,7 @@
 
                     <?php if($submission->file_path): ?>
                         &nbsp;·&nbsp;
-                        <a href="<?php echo e(asset('storage/' . $submission->file_path)); ?>" target="_blank" style="color:#166534;font-weight:600;text-decoration:underline;">
+                        <a href="<?php echo e(route('files.submission', $submission->id)); ?>" target="_blank" style="color:#166534;font-weight:600;text-decoration:underline;">
                             📎 View current file
                         </a>
                     <?php endif; ?>

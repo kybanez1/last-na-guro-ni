@@ -85,6 +85,34 @@
                     <div class="label">Requirements</div>
                     <div class="value"><?php echo e($project->requirements ?: 'No requirements provided.'); ?></div>
                 </div>
+                <?php if($project->instruction_file || $project->instruction_link): ?>
+                <div style="grid-column:1/-1;">
+                    <div class="label">Instruction File / Link</div>
+                    <div class="value" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+                        <?php if($project->instruction_file): ?>
+                            <span style="font-weight:600;color:#4338ca;">
+                                📎 <?php echo e($project->instruction_file_name ?? basename($project->instruction_file)); ?>
+
+                            </span>
+                            <a href="<?php echo e(route('files.instruction', $project->id)); ?>"
+                               target="_blank"
+                               style="padding:.3rem .8rem;background:#eef2ff;color:#4338ca;border:1px solid #c7d2fe;border-radius:8px;text-decoration:none;font-size:.82rem;font-weight:600;">
+                                👁 View
+                            </a>
+                            <a href="<?php echo e(route('files.instruction.download', $project->id)); ?>"
+                               style="padding:.3rem .8rem;background:#4f46e5;color:white;border-radius:8px;text-decoration:none;font-size:.82rem;font-weight:600;">
+                                ⬇ Download
+                            </a>
+                        <?php elseif($project->instruction_link): ?>
+                            <a href="<?php echo e($project->instruction_link); ?>"
+                               target="_blank"
+                               style="padding:.3rem .8rem;background:#4f46e5;color:white;border-radius:8px;text-decoration:none;font-size:.82rem;font-weight:600;">
+                                🔗 Open Link
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
                 <div>
                     <div class="label">Max Score</div>
                     <div class="value"><?php echo e($project->max_score); ?></div>
@@ -187,6 +215,17 @@
                                 <?php echo e(ucfirst($pStatus)); ?>
 
                             </span>
+                            <?php
+                                $studentLateSub = \App\Models\ProjectSubmission::where('project_id', $project->id)
+                                    ->where('student_id', $assignedStudent->id)
+                                    ->whereNull('task_id')
+                                    ->latest()->first();
+                            ?>
+                            <?php if($studentLateSub && $studentLateSub->is_late): ?>
+                                <span style="display:inline-block;margin-left:4px;padding:1px 7px;background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:999px;font-size:.68rem;font-weight:700;">
+                                    🕐 Late
+                                </span>
+                            <?php endif; ?>
                         </td>
                         <td>
                             <?php if($pivot && $pivot->score !== null): ?>
@@ -358,10 +397,15 @@
                                     ? $submission->submitted_at->format('M d, Y h:i A')
                                     : '—'); ?>
 
+                                <?php if($submission->is_late): ?>
+                                    <span style="display:inline-block;margin-left:4px;padding:1px 7px;background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:999px;font-size:.7rem;font-weight:700;">
+                                        🕐 Late
+                                    </span>
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <?php if($submission->file_path): ?>
-                                    <a href="<?php echo e(asset('storage/' . $submission->file_path)); ?>"
+                                    <a href="<?php echo e(route('files.submission', $submission->id)); ?>"
                                        target="_blank" class="file-link">📎 View</a>
                                 <?php else: ?>
                                     —

@@ -83,6 +83,33 @@
                     <div class="label">Requirements</div>
                     <div class="value">{{ $project->requirements ?: 'No requirements provided.' }}</div>
                 </div>
+                @if($project->instruction_file || $project->instruction_link)
+                <div style="grid-column:1/-1;">
+                    <div class="label">Instruction File / Link</div>
+                    <div class="value" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+                        @if($project->instruction_file)
+                            <span style="font-weight:600;color:#4338ca;">
+                                📎 {{ $project->instruction_file_name ?? basename($project->instruction_file) }}
+                            </span>
+                            <a href="{{ route('files.instruction', $project->id) }}"
+                               target="_blank"
+                               style="padding:.3rem .8rem;background:#eef2ff;color:#4338ca;border:1px solid #c7d2fe;border-radius:8px;text-decoration:none;font-size:.82rem;font-weight:600;">
+                                👁 View
+                            </a>
+                            <a href="{{ route('files.instruction.download', $project->id) }}"
+                               style="padding:.3rem .8rem;background:#4f46e5;color:white;border-radius:8px;text-decoration:none;font-size:.82rem;font-weight:600;">
+                                ⬇ Download
+                            </a>
+                        @elseif($project->instruction_link)
+                            <a href="{{ $project->instruction_link }}"
+                               target="_blank"
+                               style="padding:.3rem .8rem;background:#4f46e5;color:white;border-radius:8px;text-decoration:none;font-size:.82rem;font-weight:600;">
+                                🔗 Open Link
+                            </a>
+                        @endif
+                    </div>
+                </div>
+                @endif
                 <div>
                     <div class="label">Max Score</div>
                     <div class="value">{{ $project->max_score }}</div>
@@ -364,7 +391,7 @@
                             </td>
                             <td>
                                 @if($submission->file_path)
-                                    <a href="{{ asset('storage/' . $submission->file_path) }}"
+                                    <a href="{{ route('files.submission', $submission->id) }}"
                                        target="_blank" class="file-link">📎 View</a>
                                 @else
                                     —

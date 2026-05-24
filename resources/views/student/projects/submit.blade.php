@@ -166,7 +166,7 @@
                     {{ $submission->submitted_at ? $submission->submitted_at->format('M d, Y h:i A') : '' }}
                     @if($submission->file_path)
                         &nbsp;·&nbsp;
-                        <a href="{{ asset('storage/' . $submission->file_path) }}" target="_blank" style="color:#166534;font-weight:600;text-decoration:underline;">
+                        <a href="{{ route('files.submission', $submission->id) }}" target="_blank" style="color:#166534;font-weight:600;text-decoration:underline;">
                             📎 View current file
                         </a>
                     @endif

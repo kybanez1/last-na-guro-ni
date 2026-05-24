@@ -55,7 +55,7 @@
 
             @if($submission->file_path)
 
-                <a href="{{ asset('storage/' . $submission->file_path) }}"
+                <a href="{{ route('files.submission', $submission->id) }}"
                    target="_blank"
                    class="btn btn-primary">
 

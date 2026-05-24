@@ -85,7 +85,7 @@
                             </td>
                             <td style="padding:.85rem 1.25rem;">
                                 @if($ts && $ts->file_path)
-                                    <a href="{{ asset('storage/' . $ts->file_path) }}" target="_blank"
+                                    <a href="{{ route('files.submission', $ts->id) }}" target="_blank"
                                        style="color:#4f46e5;font-size:.83rem;font-weight:600;text-decoration:none;">📎 View File</a>
                                 @elseif($ts && $ts->content)
                                     <span style="font-size:.8rem;color:#6b7280;" title="{{ $ts->content }}">📝 Text submission</span>
@@ -114,7 +114,7 @@
             @if($generalSubmission->file_path)
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem;background:#f5f3ff;border:1px solid #c7d2fe;border-radius:10px;">
                     <span style="font-weight:600;color:#4338ca;">📎 {{ basename($generalSubmission->file_path) }}</span>
-                    <a href="{{ asset('storage/' . $generalSubmission->file_path) }}" target="_blank"
+                    <a href="{{ route('files.submission', $generalSubmission->id) }}" target="_blank"
                        style="padding:.5rem 1rem;background:#4f46e5;color:white;border-radius:8px;text-decoration:none;font-size:.83rem;font-weight:600;">
                         ⬇ Download
                     </a>

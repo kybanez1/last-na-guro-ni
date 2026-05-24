@@ -92,15 +92,14 @@
                         </div>
                         <div style="display:flex;gap:8px;">
                             <?php if($project->instruction_file): ?>
-                                <a href="<?php echo e(asset('storage/' . $project->instruction_file)); ?>"
+                                <a href="<?php echo e(route('files.instruction', $project->id)); ?>"
                                    target="_blank"
                                    style="padding:.5rem 1rem;background:#eef2ff;color:#4338ca;
                                           border:1px solid #c7d2fe;border-radius:8px;
                                           text-decoration:none;font-size:.82rem;font-weight:600;">
                                     👁 View
                                 </a>
-                                <a href="<?php echo e(asset('storage/' . $project->instruction_file)); ?>"
-                                   download="<?php echo e($project->instruction_file_name ?? basename($project->instruction_file)); ?>"
+                                <a href="<?php echo e(route('files.instruction.download', $project->id)); ?>"
                                    style="padding:.5rem 1rem;background:#4f46e5;color:white;
                                           border-radius:8px;text-decoration:none;
                                           font-size:.82rem;font-weight:600;">
@@ -201,6 +200,13 @@
                                         <?php echo e($taskSubmission->submitted_at->format('M d, Y h:i A')); ?>
 
                                     </div>
+
+                                    <?php if($taskSubmission->is_late): ?>
+                                        <div class="meta-pill"
+                                             style="background:#fef3c7;color:#92400e;font-weight:700;border:1px solid #fde68a;">
+                                            🕐 Late Submission
+                                        </div>
+                                    <?php endif; ?>
 
                                     
                                     <?php if($project->group_id && $taskSubmission->student_id !== auth()->id()): ?>
@@ -303,6 +309,12 @@
                                 ✅ Submitted: <?php echo e($generalSubmission->submitted_at->format('M d, Y h:i A')); ?>
 
                             </div>
+                            <?php if($generalSubmission->is_late): ?>
+                                <div class="meta-pill"
+                                     style="background:#fef3c7;color:#92400e;font-weight:700;border:1px solid #fde68a;">
+                                    🕐 Late Submission
+                                </div>
+                            <?php endif; ?>
                         <?php endif; ?>
 
                         <?php if($isGraded && $generalSubmission->score !== null): ?>

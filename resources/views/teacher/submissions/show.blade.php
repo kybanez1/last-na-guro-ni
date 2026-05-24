@@ -74,7 +74,7 @@
         <div style="margin-bottom:1.5rem;">
             <strong>File:</strong>
             @if($submission->file_path)
-                <a href="{{ asset('storage/' . $submission->file_path) }}"
+                <a href="{{ route('files.submission', $submission->id) }}"
                    target="_blank" style="margin-left:8px;">
                     📎 Open Submission File
                 </a>

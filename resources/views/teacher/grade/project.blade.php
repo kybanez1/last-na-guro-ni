@@ -110,7 +110,7 @@
                         </td>
                         <td>
                             @if($sub->file_path)
-                                <a href="{{ asset('storage/' . $sub->file_path) }}" target="_blank" class="file-link">📎 View</a>
+                                <a href="{{ route('files.submission', $sub->id) }}" target="_blank" class="file-link">📎 View</a>
                             @else
                                 —
                             @endif

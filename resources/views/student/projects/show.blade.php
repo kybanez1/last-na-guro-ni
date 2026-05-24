@@ -87,15 +87,14 @@
                         </div>
                         <div style="display:flex;gap:8px;">
                             @if($project->instruction_file)
-                                <a href="{{ asset('storage/' . $project->instruction_file) }}"
+                                <a href="{{ route('files.instruction', $project->id) }}"
                                    target="_blank"
                                    style="padding:.5rem 1rem;background:#eef2ff;color:#4338ca;
                                           border:1px solid #c7d2fe;border-radius:8px;
                                           text-decoration:none;font-size:.82rem;font-weight:600;">
                                     👁 View
                                 </a>
-                                <a href="{{ asset('storage/' . $project->instruction_file) }}"
-                                   download="{{ $project->instruction_file_name ?? basename($project->instruction_file) }}"
+                                <a href="{{ route('files.instruction.download', $project->id) }}"
                                    style="padding:.5rem 1rem;background:#4f46e5;color:white;
                                           border-radius:8px;text-decoration:none;
                                           font-size:.82rem;font-weight:600;">
